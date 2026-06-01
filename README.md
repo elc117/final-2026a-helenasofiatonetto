@@ -1,15 +1,22 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8MfjtJ-y)
 
-Identificação: Sofia Tonetto e Helena Kellermann - Sistemas de Informação
+## Identificação: Sofia Tonetto e Helena Kellermann - Sistemas de Informação
 
-Proposta: descrição do tema/objetivo do trabalho, conforme a proposta validada
+## Proposta: descrição do tema/objetivo do trabalho, conforme a proposta validada
 
-Processo de desenvolvimento: comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
+## Processo de desenvolvimento: comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
 
-Diagrama de classes: imagem com diagrama de classes do projeto, com crédito à ferramenta usada
+## Diagrama de classes: 
+Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos
+![Classes e relações](https://github.com/user-attachments/assets/e4f6edce-3f01-4824-bfd4-7f351605891a)/>
 
-Orientações para execução: instalação de dependências, etc.
+Depois, construimos o diagrama completo, com todos os atributos e métodos.
+![Atributos e métodos](https://github.com/user-attachments/assets/06437183-ff0f-4a19-9b8d-0ceededc8b4e)/>
 
-Resultado final: demonstrar execução em GIF animado ou vídeo curto
+Utilizamos o site [PlantUML]([https://plantuml.com](https://www.plantuml.com/plantuml/uml/SyfFKj2rKt3CoKnELR1Io4ZDoSa700002)), onde colocarmos o código em java para que ele fizesse o diagrama. 
 
-Referências e créditos (incluindo alguns prompts, quando aplicável)
+## Orientações para execução: instalação de dependências, etc.
+
+## Resultado final: demonstrar execução em GIF animado ou vídeo curto
+
+## Referências e créditos (incluindo alguns prompts, quando aplicável)
