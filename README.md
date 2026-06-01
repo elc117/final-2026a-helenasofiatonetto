@@ -28,8 +28,6 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
 
 ## Plano de trabalho
-## Plano de trabalho
-
 ### Semana 1 — Ambientação com libGDX
 - [ ] Executar os exemplos simples fornecidos no material de aula
 - [ ] Configurar o projeto com build para web/html desde o início
@@ -62,8 +60,4 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 - [ ] Revisar organização das classes e boas práticas de OOP
 - [ ] Garantir que ambas têm commits e entendem o projeto como um todo
 - [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções
-
----
-
-### Combinação de colaboração
-> Descreva aqui como a dupla vai trabalhar junta (encontros síncronos, divisão de tarefas, revisão de código, etc.)
+* esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW
