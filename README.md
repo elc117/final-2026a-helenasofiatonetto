@@ -1,9 +1,27 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8MfjtJ-y)
 
-## Identificação: 
+<h1>GlobeDelegates</h1>
+
+## Identificação:
 Sofia Tonetto e Helena Kellermann - Sistemas de Informação
 
-## Proposta: descrição do tema/objetivo do trabalho, conforme a proposta validada
+## Proposta:
+Globe Delegates é voltado para a temática de viagens e [simulações da ONU](https://www.crimsoneducation.org/br/blog/simulacao-da-onu), também conhecidas como 'Model United Nations'. o MUN é um evento acadêmico no qual estudantes representam diplomatas de diferentes países para debater questões globais.<br>
+A ideia do jogo é explorar curiosidades e a história (de alguns) dos países envolvidos na ONU, ligando esse tema com java e grupos.
+Desenvolvemos o jogo utilizando o framework de desenvolvimento de jogos [libGDX](https://libgdx.com/) em conjunto com a plataforma digital [itch.io](https://itch.io/) para hospedar na web.
+
+Primeira Parte - Simulação:
+* Personagem: jogador escolhe um acessório que determinará o país que representará, ou seja, de qual delegação (grupo) ele fará parte;
+* Delegação: composta pelo jogador com seu personagem escolhido;
+* Escape Room: sala com tarefas que deverão ser cumpridas como quizzes, coletar acessórios, etc.
+* Bônus: quem completar todo o escape room, ganhará uma menção honrosa ou outro acessório (como ocorre nas simulações), ou ainda, ganhará uma dica para a parte do Combate de Delegações;
+* Países: 8 países representados por 8 vestimentas diferentes; 
+* Perguntas: baseadas nas curiosidades e história dos países representados.
+
+Segunda Parte - Combate de Delegações:
+* Multiplayer: parte pensada para jogar-se em conjunto, onde os alunos escolhem os personagens;
+* Perguntas: organizadas em códigos em Haskell, Prolog e Java, em que os jogadores deverão ler e identificar a saída correta do código ou o que está faltando nele.
+
 
 ## Processo de desenvolvimento: comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
 
