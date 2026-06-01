@@ -26,3 +26,44 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
 
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
+
+## Plano de trabalho
+## Plano de trabalho
+
+### Semana 1 — Ambientação com libGDX
+- [ ] Executar os exemplos simples fornecidos no material de aula
+- [ ] Configurar o projeto com build para web/html desde o início
+- [ ] Testar o build web e garantir que funciona
+- [ ] Cada integrante cria pequenos exemplos individuais com libGDX
+- [✅] Pensar nos diagramas de classes
+
+### Semana 2 — Mecânica básica
+- [ ] Definir e combinar a forma de colaboração da dupla (síncrona ou assíncrona) e registrar no README
+- [ ] Implementar a tela inicial com sprites placeholder
+- [ ] Fazer o personagem aparecer na tela e responder a ações do usuário
+- [ ] Implementar a escolha do chapéu e a lógica de alocação por país
+- [ ] Commit a cada avanço, por pequeno que seja
+
+### Semana 3 — Fase 1: Escape Room
+- [ ] Implementar a estrutura básica do Escape Room com placeholders
+- [ ] Implementar a lógica de tarefas e quiz
+- [ ] Implementar o inventário de acessórios e o sistema de bônus
+- [ ] Registrar dúvidas e decisões de design no README
+
+### Semana 4 — Fase 2: Combate de delegações
+- [ ] Implementar a lógica de delegações e pontuação
+- [ ] Implementar as perguntas de código (Java, Haskell, Prolog)
+- [ ] Implementar o ranking final
+- [ ] Testar o build web novamente
+
+### Semana 5 — Polimento e entrega
+- [ ] Substituir placeholders pelos assets definitivos (com créditos no README)
+- [ ] Refatorar o código conforme necessidade e registrar no README
+- [ ] Revisar organização das classes e boas práticas de OOP
+- [ ] Garantir que ambas têm commits e entendem o projeto como um todo
+- [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções
+
+---
+
+### Combinação de colaboração
+> Descreva aqui como a dupla vai trabalhar junta (encontros síncronos, divisão de tarefas, revisão de código, etc.)
