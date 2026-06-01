@@ -61,3 +61,20 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 - [ ] Garantir que ambas têm commits e entendem o projeto como um todo
 - [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções<br>
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
+
+
+
+
+## Referências
+
+LINKS LIBGDX:
+
+<br>Como começar com LibGDX - https://libgdx.com/dev/
+<br>Istruções de Setup - https://libgdx.com/wiki/start/setup
+<br>Exemplo "A Simple Game" - https://libgdx.com/wiki/start/a-simple-game
+<br>Estendendo "A Simple Game" - https://libgdx.com/wiki/start/simple-game-extended
+<br>Tutorial para Iniciante - https://colourtann.github.io/HelloLibgdx/
+<br>Wiki da LibGDX - https://libgdx.com/wiki/
+<br>Ferramentas para desenvolvimento - https://libgdx.com/dev/tools/
+
+<br>Itchi.io - https://itch.io/
