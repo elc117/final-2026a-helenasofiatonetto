@@ -10,7 +10,7 @@
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos
 <img width="300" alt="Somente classes do sistema" src="https://github.com/user-attachments/assets/e4f6edce-3f01-4824-bfd4-7f351605891a" />
 
-Depois, construimos o diagrama completo, com todos os atributos e métodos.<b>
+Depois, construimos o diagrama completo, com todos os atributos e métodos.<\n>
 <img width="300" alt="Com os atributos e métodos" src="https://github.com/user-attachments/assets/06437183-ff0f-4a19-9b8d-0ceededc8b4e" />
 
 Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama. 
