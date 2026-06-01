@@ -35,7 +35,7 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 - [ ] Configurar o projeto com build para web/html desde o início
 - [ ] Testar o build web e garantir que funciona
 - [ ] Cada integrante cria pequenos exemplos individuais com libGDX
-- [✅] Pensar nos diagramas de classes
+- ✅ Pensar nos diagramas de classes
 
 ### Semana 2 — Mecânica básica
 - [ ] Definir e combinar a forma de colaboração da dupla (síncrona ou assíncrona) e registrar no README
