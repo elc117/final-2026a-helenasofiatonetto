@@ -13,6 +13,9 @@ Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atr
 
 Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
 <img width="300" alt="Com os atributos e métodos" src="https://github.com/user-attachments/assets/06437183-ff0f-4a19-9b8d-0ceededc8b4e" />
+# Diagramas de classes
+<img width="801" height="694" alt="5A9D7ECF-2B63-410E-BA5A-3D39D0A78500" src="https://github.com/user-attachments/assets/cafc4967-ca60-46f6-9fd9-13409b96b09c" />
+<img width="1131" height="1128" alt="0F6948E7-D574-4DB3-B0E4-E1F0F8544C9E" src="https://github.com/user-attachments/assets/6685f4b0-4b4d-4009-877f-32317688a9ab" />
 
 Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama. 
 
