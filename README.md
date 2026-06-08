@@ -47,10 +47,10 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 
 ## Plano de trabalho
 ### Semana 1 — Ambientação com libGDX
-- [ ] Executar os exemplos simples fornecidos no material de aula
-- [ ] Configurar o projeto com build para web/html desde o início
-- [ ] Testar o build web e garantir que funciona
-- [ ] Cada integrante cria pequenos exemplos individuais com libGDX
+- ✅ Executar os exemplos simples fornecidos no material de aula
+- ✅ Configurar o projeto com build para web/html desde o início
+- ✅ Testar o build web e garantir que funciona
+- ✅ Cada integrante cria pequenos exemplos individuais com libGDX
 - ✅ Pensar nos diagramas de classes
 
 ### Semana 2 — Mecânica básica
