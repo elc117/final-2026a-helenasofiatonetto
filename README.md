@@ -78,6 +78,7 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 - [ ] Revisar organização das classes e boas práticas de OOP
 - [ ] Garantir que ambas têm commits e entendem o projeto como um todo
 - [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções<br>
+
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
 
 
