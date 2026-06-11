@@ -47,15 +47,15 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 
 ## Plano de trabalho
 ### Semana 1 — Ambientação com libGDX
-- [ ] Executar os exemplos simples fornecidos no material de aula
-- [ ] Configurar o projeto com build para web/html desde o início
-- [ ] Testar o build web e garantir que funciona
-- [ ] Cada integrante cria pequenos exemplos individuais com libGDX
+- ✅ Executar os exemplos simples fornecidos no material de aula
+- ✅ Configurar o projeto com build para web/html desde o início
+- ✅ Testar o build web e garantir que funciona
+- ✅ Cada integrante cria pequenos exemplos individuais com libGDX
 - ✅ Pensar nos diagramas de classes
 
 ### Semana 2 — Mecânica básica
-- [ ] Definir e combinar a forma de colaboração da dupla (síncrona ou assíncrona) e registrar no README
-- [ ] Implementar a tela inicial com sprites placeholder
+- ✅ Definir e combinar a forma de colaboração da dupla (síncrona ou assíncrona) e registrar no README
+- ✅ Implementar a tela inicial com sprites placeholder
 - [ ] Fazer o personagem aparecer na tela e responder a ações do usuário
 - [ ] Implementar a escolha do chapéu e a lógica de alocação por país
 - [ ] Commit a cada avanço, por pequeno que seja
