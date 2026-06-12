@@ -29,7 +29,7 @@ public class TelaQuiz implements Screen {
 
         if (!redirecionado) {
             redirecionado = true;
-            if (jogador.getPais().equals("Japao")) {
+            if (jogador.getPais().equals("Japao") || jogador.getPais().equals("Mexico")) {
                 jogo.setScreen(new TelaEscapeJapao(jogo, jogador));
                 return;
             }

@@ -38,7 +38,6 @@ public class TelaMundo implements Screen {
         font.getData().setScale(1.5f);
         fundo = new Texture("mundiJogo.png");
         icone = new Texture(jogador.getIcone() + ".png");
-        casinha = new Texture("japao/japao_casinha2.png");
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -46,13 +45,25 @@ public class TelaMundo implements Screen {
         btnW = 120; btnH = 40;
         btnX = 20; btnY = h - 60;
 
-        // Posição da casinha baseada no país
         switch (jogador.getPais()) {
-            case "Japao": casinhaX = w * 0.78f; casinhaY = h * 0.72f - casinhaSize; break;
-            default:      casinhaX = w * 0.5f;  casinhaY = h * 0.5f; break;
+            case "Japao":
+                casinha = new Texture("japao/japao_casinha2.png");
+                casinhaX = w * 0.78f; casinhaY = h * 0.72f - casinhaSize;
+                break;
+            case "Canada":
+                casinha = new Texture("canada/casinha.png");
+                casinhaX = w * 0.22f; casinhaY = h * 0.72f - casinhaSize;
+                break;
+            case "Mexico":
+                casinha = new Texture("mexico/casa_mexico.png");
+                casinhaX = w * 0.22f; casinhaY = h * 0.55f - casinhaSize;
+                break;
+            default:
+                casinha = new Texture("japao/japao_casinha2.png");
+                casinhaX = w * 0.5f; casinhaY = h * 0.5f;
+                break;
         }
 
-        // Personagem começa do lado esquerdo
         persX = 50;
         persY = h * 0.4f;
     }
@@ -70,7 +81,6 @@ public class TelaMundo implements Screen {
         batch.draw(casinha, casinhaX, casinhaY, casinhaSize, casinhaSize);
         batch.end();
 
-        // Mover personagem
         if (Gdx.input.isKeyPressed(Keys.LEFT))  persX -= persVX * delta;
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
         if (Gdx.input.isKeyPressed(Keys.UP))    persY += persVX * delta;
@@ -78,7 +88,6 @@ public class TelaMundo implements Screen {
         persX = Math.max(0, Math.min(persX, w - persSize));
         persY = Math.max(0, Math.min(persY, h - persSize * 2));
 
-        // Personagem placeholder
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.2f, 0.4f, 0.9f, 1);
         shape.rect(persX, persY, persSize, persSize * 1.5f);
@@ -86,7 +95,6 @@ public class TelaMundo implements Screen {
         shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
         shape.end();
 
-        // Verificar proximidade com casinha
         float dist = (float) Math.sqrt(Math.pow(persX - casinhaX, 2) + Math.pow(persY - casinhaY, 2));
         if (dist < 100) {
             shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -99,13 +107,20 @@ public class TelaMundo implements Screen {
             batch.end();
 
             if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-                if (jogador.getPais().equals("Japao")) {
-                    jogo.setScreen(new TelaVilagemJapao(jogo, jogador, false, false));
+                switch (jogador.getPais()) {
+                    case "Japao":
+                        jogo.setScreen(new TelaVilagemJapao(jogo, jogador, false, false));
+                        break;
+                    case "Canada":
+                        jogo.setScreen(new TelaVilagemCanada(jogo, jogador, false, false));
+                        break;
+                    case "Mexico":
+                        jogo.setScreen(new TelaVilagemMexico(jogo, jogador, false, false));
+                        break;
                 }
             }
         }
 
-        // Botão voltar
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.8f, 0.2f, 0.2f, 1);
         shape.rect(btnX, btnY, btnW, btnH);
@@ -123,7 +138,6 @@ public class TelaMundo implements Screen {
             }
         }
 
-        // HUD
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.1f, 0.1f, 0.2f, 0.8f);
         shape.rect(0, h - 50, w, 50);
