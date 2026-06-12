@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class TelaEscolha implements Screen {
 
     private GlobeDelegates jogo;
+    private Jogador jogador;
     private SpriteBatch batch;
     private ShapeRenderer shape;
     private BitmapFont font;
@@ -21,9 +22,11 @@ public class TelaEscolha implements Screen {
     private float iconeSize = 80;
     private float padding = 30;
     private float pergW, pergH, pergX, pergY;
+    private float startX, startY;
 
     public TelaEscolha(GlobeDelegates jogo) {
         this.jogo = jogo;
+        this.jogador = new Jogador();
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         font = new BitmapFont();
@@ -39,6 +42,8 @@ public class TelaEscolha implements Screen {
         pergH = 3 * iconeSize + 2 * padding + 120;
         pergX = (Gdx.graphics.getWidth() - pergW) / 2;
         pergY = (Gdx.graphics.getHeight() - pergH) / 2;
+        startX = pergX + 50;
+        startY = pergY + 40;
     }
 
     @Override
@@ -61,9 +66,6 @@ public class TelaEscolha implements Screen {
         shape.rect(pergX, pergY + pergH - 20, pergW, 20);
         shape.end();
 
-        float startX = pergX + 50;
-        float startY = pergY + 40;
-
         batch.begin();
         font.setColor(0.1f, 0.5f, 0.1f, 1);
         font.draw(batch, "ESCOLHA UM ICONE", pergX + 50, pergY + pergH - 30);
@@ -76,6 +78,21 @@ public class TelaEscolha implements Screen {
             batch.draw(icones[i], x, y, iconeSize, iconeSize);
         }
         batch.end();
+
+        if (Gdx.input.justTouched()) {
+            float tx = Gdx.input.getX();
+            float ty = h - Gdx.input.getY();
+            for (int i = 0; i < nomes.length; i++) {
+                int col = i % 3;
+                int row = 2 - (i / 3);
+                float x = startX + col * (iconeSize + padding);
+                float y = startY + row * (iconeSize + padding);
+                if (tx >= x && tx <= x + iconeSize && ty >= y && ty <= y + iconeSize) {
+                    jogador.setIcone(nomes[i]);
+                    jogo.setScreen(new TelaMundo(jogo, jogador));
+                }
+            }
+        }
     }
 
     @Override public void show() {}
