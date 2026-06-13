@@ -1,10 +1,10 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class TelaQuiz implements Screen {
 
@@ -31,6 +31,16 @@ public class TelaQuiz implements Screen {
             redirecionado = true;
             if (jogador.getPais().equals("Japao") || jogador.getPais().equals("Mexico")) {
                 jogo.setScreen(new TelaEscapeJapao(jogo, jogador));
+                return;
+            }
+
+            if (jogador.getPais().equals("Mexico")) {
+                jogo.setScreen(new TelaVilagemMexico(jogo, jogador, false, false));
+                return;
+            }
+
+            if (jogador.getPais().equals("Canada")) {
+                jogo.setScreen(new TelaVilagemCanada(jogo, jogador, false, false));
                 return;
             }
         }

@@ -1,12 +1,12 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaVilagemCanada implements Screen {
@@ -35,7 +35,7 @@ public class TelaVilagemCanada implements Screen {
         shape = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(1.5f);
-        fundo = new Texture("canada/telaescolha.jpg");
+        fundo = new Texture("canada/telaescolha.png");
 
         float h = Gdx.graphics.getHeight();
         casinhaY = new float[]{h * 0.4f, h * 0.4f, h * 0.4f};
