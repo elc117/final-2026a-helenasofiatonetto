@@ -70,6 +70,10 @@ public class TelaMundo implements Screen {
                 casinha = new Texture("austria/casinha.png");
                 casinhaX = w * 0.50f; casinhaY = h * 0.72f - casinhaSize;
                 break;
+            case "Egito":
+                casinha = new Texture("egito/casinha.jpg");
+                casinhaX = w * 0.50f; casinhaY = h * 0.60f - casinhaSize;
+                break;
             default:
                 casinha = new Texture("japao/japao_casinha2.png");
                 casinhaX = w * 0.5f; casinhaY = h * 0.5f;
@@ -137,6 +141,9 @@ public class TelaMundo implements Screen {
                         break;
                     case "Groelandia":
                         jogo.setScreen(new TelaVilagemGroelandia(jogo, jogador, false, false));
+                        break;
+                    case "Egito":
+                        jogo.setScreen(new TelaVilagemEgito(jogo, jogador, false, false));
                         break;
                 }
             }
