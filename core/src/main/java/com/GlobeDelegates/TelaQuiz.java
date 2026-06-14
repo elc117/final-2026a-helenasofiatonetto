@@ -62,6 +62,14 @@ public class TelaQuiz implements Screen {
                 jogo.setScreen(new TelaVilagemEgito(jogo, jogador, false, false));
                 return;
             }
+            if (jogador.getPais().equals("Brasil")) {
+                jogo.setScreen(new TelaVilagemBrasil(jogo, jogador, false, false));
+                return;
+            }
+            if (jogador.getPais().equals("Bussola")) {
+                jogo.setScreen(new TelaVilagemBussola(jogo, jogador, false, false, false));
+                return;
+            }
         }
 
         batch.begin();
