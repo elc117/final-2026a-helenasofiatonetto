@@ -1,11 +1,11 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaInicio implements Screen {
@@ -60,7 +60,7 @@ public class TelaInicio implements Screen {
             float tx = Gdx.input.getX();
             float ty = Gdx.graphics.getHeight() - Gdx.input.getY();
             if (tx >= btnX && tx <= btnX + btnW && ty >= btnY && ty <= btnY + btnH) {
-                jogo.setScreen(new TelaEscolha(jogo));
+                jogo.setScreen(new TelaModo(jogo));
             }
         }
     }

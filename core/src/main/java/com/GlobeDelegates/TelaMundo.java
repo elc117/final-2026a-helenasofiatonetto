@@ -71,7 +71,7 @@ public class TelaMundo implements Screen {
                 casinhaX = w * 0.50f; casinhaY = h * 0.72f - casinhaSize;
                 break;
             case "Egito":
-                casinha = new Texture("egito/casinha.jpg");
+                casinha = new Texture("egito/casinha.png");
                 casinhaX = w * 0.50f; casinhaY = h * 0.60f - casinhaSize;
                 break;
             case "Brasil":
