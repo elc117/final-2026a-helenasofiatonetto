@@ -56,19 +56,19 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 ### Semana 2 — Mecânica básica
 - ✅ Definir e combinar a forma de colaboração da dupla (síncrona ou assíncrona) e registrar no README
 - ✅ Implementar a tela inicial com sprites placeholder
-- [ ] Fazer o personagem aparecer na tela e responder a ações do usuário
-- [ ] Implementar a escolha do chapéu e a lógica de alocação por país
-- [ ] Commit a cada avanço, por pequeno que seja
+- ✅ Fazer o personagem aparecer na tela e responder a ações do usuário
+- ✅ Implementar a escolha do chapéu e a lógica de alocação por país
+- ✅ Commit a cada avanço, por pequeno que seja
 
 ### Semana 3 — Fase 1: Escape Room
-- [ ] Implementar a estrutura básica do Escape Room com placeholders
-- [ ] Implementar a lógica de tarefas e quiz
+- ✅ Implementar a estrutura básica do Escape Room com placeholders
+- ✅ Implementar a lógica de tarefas e quiz
 - [ ] Implementar o inventário de acessórios e o sistema de bônus
 - [ ] Registrar dúvidas e decisões de design no README
 
 ### Semana 4 — Fase 2: Combate de delegações
-- [ ] Implementar a lógica de delegações e pontuação
-- [ ] Implementar as perguntas de código (Java, Haskell, Prolog)
+- ✅ Implementar a lógica de delegações e pontuação
+- ✅/falta Implementar as perguntas de código (Java, Haskell, Prolog)
 - [ ] Implementar o ranking final
 - [ ] Testar o build web novamente
 
