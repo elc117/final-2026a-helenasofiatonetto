@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class TelaBonusEgito implements Screen {
 
@@ -17,33 +19,33 @@ public class TelaBonusEgito implements Screen {
     private BitmapFont font;
     private Texture fundo;
 
-    // Modo: 0 = decifrar mensagem, 1 = espelho
-    private int modo = 0;
-    private int rodada = 0;
-    private int totalRodadas = 6;
+    // Pirâmide: 3 camadas, base=5, meio=3, topo=1
+    private int[] camadasTamanho = {5, 3, 1};
+    private int camadaAtual = 0;
+    private int blocoNaCamada = 0;
+
+    // Blocos caindo
+    private float blocoX, blocoY;
+    private float blocoVY = 150;
+    private float blocoW = 80, blocoH = 60;
+    private char[] hieroglifos = {'A','B','C','D','E','F','G','H','I'};
+    private char blocoHieroglifo;
+    private char blocoCorreto;
+
+    // Blocos na fila (embaralhados)
+    private ArrayList<Character> fila = new ArrayList<>();
+    private boolean blocoAtivo = false;
+    private float tempoEspera = 0;
+
+    // Pirâmide construída
+    private ArrayList<float[]> blocosColocados = new ArrayList<>();
+
     private boolean concluido = false;
+    private boolean errou = false;
     private float tempoMensagem = 0;
-    private boolean acertou = false;
 
-    // Modo 0 — Decifrar mensagem
-    private String[][] palavras = {
-        {"SOL", "Ra"},
-        {"VIDA", "Ankh"},
-        {"REI", "Farao"},
-        {"GATO", "Miau"},
-        {"AGUA", "Nilo"},
-        {"MORTE", "Osiris"}
-    };
-    private String palavraDigitada = "";
-    private String[] letrasDisponiveis = {"A","B","C","D","E","F","G","H","I","J","K","L","M",
-                                           "N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
-    private float letraSize = 45;
-
-    // Modo 1 — Espelho (grade 5x5)
-    private boolean[][] modelo;
-    private boolean[][] jogadorGrade;
-    private int gradeSize = 5;
-    private float celulaSize = 60;
+    private float piramideBaseX, piramideBaseY;
+    private float larguraBase;
 
     public TelaBonusEgito(GlobeDelegates jogo, Jogador jogador) {
         this.jogo = jogo;
@@ -51,30 +53,52 @@ public class TelaBonusEgito implements Screen {
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         font = new BitmapFont();
-        font.getData().setScale(1.6f);
+        font.getData().setScale(2f);
         fundo = new Texture("egito/bonus.jpg");
-        iniciarRodada();
+
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+
+        piramideBaseX = w/2 - (camadasTamanho[0] * blocoW)/2f;
+        piramideBaseY = h * 0.1f;
+        larguraBase = camadasTamanho[0] * blocoW;
+
+        gerarFila();
+        lancarBloco(w);
     }
 
-    private void iniciarRodada() {
-        palavraDigitada = "";
-        modo = rodada % 2;
-        if (modo == 1) {
-            gerarModelo();
+    private void gerarFila() {
+        fila.clear();
+        int totalBlocos = 0;
+        for (int t : camadasTamanho) totalBlocos += t;
+        for (int i = 0; i < totalBlocos; i++) {
+            fila.add(hieroglifos[i % hieroglifos.length]);
         }
+        Collections.shuffle(fila);
     }
 
-    private void gerarModelo() {
-        modelo = new boolean[gradeSize][gradeSize];
-        jogadorGrade = new boolean[gradeSize][gradeSize];
-        // Gerar padrão aleatório simétrico
-        for (int r = 0; r < gradeSize; r++) {
-            for (int c = 0; c < gradeSize/2 + 1; c++) {
-                boolean val = Math.random() > 0.5f;
-                modelo[r][c] = val;
-                modelo[r][gradeSize - 1 - c] = val;
-            }
+    private char getBlocoCorreto() {
+        int idx = 0;
+        for (int c = 0; c < camadaAtual; c++) idx += camadasTamanho[c];
+        idx += blocoNaCamada;
+        return fila.get(idx);
+    }
+
+    private void lancarBloco(float w) {
+        blocoCorreto = getBlocoCorreto();
+        // Chance de ser o bloco correto ou errado
+        if (Math.random() > 0.4f) {
+            blocoHieroglifo = blocoCorreto;
+        } else {
+            char errado;
+            do { errado = hieroglifos[(int)(Math.random() * hieroglifos.length)]; }
+            while (errado == blocoCorreto);
+            blocoHieroglifo = errado;
         }
+        blocoX = (float)(Math.random() * (w - blocoW));
+        blocoY = Gdx.graphics.getHeight() + 20;
+        blocoAtivo = true;
+        errou = false;
     }
 
     @Override
@@ -90,7 +114,7 @@ public class TelaBonusEgito implements Screen {
         batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0, 0, 0, 0.6f);
+        shape.setColor(0, 0, 0, 0.5f);
         shape.rect(0, 0, w, h);
         shape.end();
 
@@ -99,250 +123,156 @@ public class TelaBonusEgito implements Screen {
         // HUD
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0, 0, 0, 0.8f);
-        shape.rect(0, h - 50, w, 50);
+        shape.rect(0, h - 55, w, 55);
         shape.end();
         batch.begin();
         font.setColor(0.9f, 0.75f, 0.1f, 1);
-        font.draw(batch, "Decifrando Hieroglifos | Rodada " + (rodada+1) + "/" + totalRodadas, 20, h - 15);
+        font.draw(batch, "Construcao da Piramide | Camada " + (camadaAtual+1) + "/3 | Bloco " + (blocoNaCamada+1) + "/" + camadasTamanho[camadaAtual], 15, h - 15);
         batch.end();
 
+        // Desenhar pirâmide construída
+        desenharPiramideConstruida(w, h);
+
+        // Mostrar hieróglifo correto
+        shape.begin(ShapeRenderer.ShapeType.Filled);
+        shape.setColor(0.15f, 0.1f, 0.02f, 0.9f);
+        shape.rect(20, h/2 - 60, 180, 120);
+        shape.end();
+        batch.begin();
+        font.setColor(0.9f, 0.75f, 0.1f, 1);
+        font.draw(batch, "Precisa:", 30, h/2 + 45);
+        font.setColor(1, 1, 0.3f, 1);
+        font.draw(batch, String.valueOf(blocoCorreto), 75, h/2);
+        batch.end();
+
+        // Mensagem de erro/acerto
         if (tempoMensagem > 0) {
             tempoMensagem -= delta;
             batch.begin();
-            font.setColor(acertou ? 0.2f : 1f, acertou ? 1f : 0.2f, 0.2f, 1);
-            font.draw(batch, acertou ? "Correto!" : "Errado! Tente novamente!", w/2 - 160, h/2);
+            font.setColor(errou ? 1f : 0.2f, errou ? 0.2f : 1f, 0.2f, 1);
+            font.draw(batch, errou ? "Errado! Voltou!" : "Correto!", w/2 - 100, h/2 + 50);
             batch.end();
-            if (tempoMensagem <= 0 && acertou) {
-                rodada++;
-                if (rodada >= totalRodadas) concluido = true;
-                else iniciarRodada();
-            }
+        }
+
+        if (tempoEspera > 0) {
+            tempoEspera -= delta;
+            if (tempoEspera <= 0) lancarBloco(w);
             return;
         }
 
-        if (modo == 0) renderDecifrar(w, h);
-        else renderEspelho(w, h);
-    }
+        // Mover bloco caindo
+        if (blocoAtivo) {
+            blocoY -= blocoVY * delta;
 
-    private void renderDecifrar(float w, float h) {
-        int idx = rodada / 2;
-        if (idx >= palavras.length) idx = palavras.length - 1;
-        String palavra = palavras[idx][0];
-        String dica = palavras[idx][1];
-
-        // Painel
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.15f, 0.1f, 0.02f, 0.9f);
-        shape.rect(w/2 - 350, 80, 700, 500);
-        shape.end();
-
-        // Hieróglifos desenhados como símbolos geométricos
-        batch.begin();
-        font.setColor(0.9f, 0.75f, 0.1f, 1);
-        font.draw(batch, "Decifre o hieroglifo! Dica: " + dica, w/2 - 240, h - 70);
-        batch.end();
-
-        // Desenhar símbolos hieroglíficos para cada letra
-        float sx = w/2 - (palavra.length() * 70)/2f;
-        for (int i = 0; i < palavra.length(); i++) {
-            desenharHieroglifo(palavra.charAt(i), sx + i * 70, h/2 + 80);
-        }
-
-        // Campo digitado
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.2f, 0.15f, 0.05f, 1);
-        shape.rect(w/2 - 150, h/2 + 10, 300, 50);
-        shape.end();
-        batch.begin();
-        font.setColor(0.5f, 1f, 0.5f, 1);
-        font.draw(batch, palavraDigitada + "|", w/2 - 135, h/2 + 48);
-        batch.end();
-
-        // Teclado
-        int cols = 13;
-        float kw = 45, kh = 40;
-        float kStartX = w/2 - (cols * (kw + 5))/2f;
-        for (int i = 0; i < letrasDisponiveis.length; i++) {
-            int row = i / cols;
-            int col = i % cols;
-            float kx = kStartX + col * (kw + 5);
-            float ky = h/2 - 60 - row * (kh + 8);
-
+            // Desenhar bloco
             shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.setColor(0.3f, 0.2f, 0.05f, 1);
-            shape.rect(kx, ky, kw, kh);
+            shape.setColor(0.7f, 0.55f, 0.2f, 1);
+            shape.rect(blocoX, blocoY, blocoW, blocoH);
+            shape.end();
+            shape.begin(ShapeRenderer.ShapeType.Line);
+            shape.setColor(0.9f, 0.75f, 0.1f, 1);
+            shape.rect(blocoX, blocoY, blocoW, blocoH);
             shape.end();
             batch.begin();
-            font.setColor(1, 0.9f, 0.5f, 1);
-            font.draw(batch, letrasDisponiveis[i], kx + 12, ky + kh - 8);
+            font.setColor(0.1f, 0.05f, 0f, 1);
+            font.draw(batch, String.valueOf(blocoHieroglifo), blocoX + blocoW/2 - 12, blocoY + blocoH - 8);
             batch.end();
 
+            // Toque no bloco
             if (Gdx.input.justTouched()) {
                 float tx = Gdx.input.getX();
-                float ty = Gdx.graphics.getHeight() - Gdx.input.getY();
-                if (tx >= kx && tx <= kx + kw && ty >= ky && ty <= ky + kh) {
-                    palavraDigitada += letrasDisponiveis[i];
+                float ty = h - Gdx.input.getY();
+                if (tx >= blocoX && tx <= blocoX + blocoW &&
+                    ty >= blocoY && ty <= blocoY + blocoH) {
+                    if (blocoHieroglifo == blocoCorreto) {
+                        // Colocar na pirâmide
+                        float px = getPosicaoBlocoX(w);
+                        float py = getPosicaoBlocoY();
+                        blocosColocados.add(new float[]{px, py, (float)blocoHieroglifo});
+                        blocoNaCamada++;
+                        if (blocoNaCamada >= camadasTamanho[camadaAtual]) {
+                            camadaAtual++;
+                            blocoNaCamada = 0;
+                            if (camadaAtual >= camadasTamanho.length) {
+                                concluido = true;
+                                return;
+                            }
+                        }
+                        errou = false;
+                        tempoMensagem = 0.8f;
+                        blocoAtivo = false;
+                        tempoEspera = 1f;
+                    } else {
+                        // Bloco errado — volta ao topo
+                        errou = true;
+                        tempoMensagem = 1f;
+                        blocoAtivo = false;
+                        tempoEspera = 1f;
+                    }
                 }
             }
-        }
 
-        // Botoes confirmar e apagar
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.5f, 0.1f, 1);
-        shape.rect(w/2 - 200, 100, 160, 45);
-        shape.setColor(0.5f, 0.1f, 0.1f, 1);
-        shape.rect(w/2 + 40, 100, 160, 45);
-        shape.end();
-        batch.begin();
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "CONFIRMAR", w/2 - 185, 133);
-        font.draw(batch, "APAGAR", w/2 + 65, 133);
-        batch.end();
-
-        if (Gdx.input.justTouched()) {
-            float tx = Gdx.input.getX();
-            float ty = Gdx.graphics.getHeight() - Gdx.input.getY();
-            if (tx >= w/2 - 200 && tx <= w/2 - 40 && ty >= 100 && ty <= 145) {
-                acertou = palavraDigitada.equals(palavra);
-                tempoMensagem = 1.5f;
-                if (!acertou) palavraDigitada = "";
-            }
-            if (tx >= w/2 + 40 && tx <= w/2 + 200 && ty >= 100 && ty <= 145) {
-                if (palavraDigitada.length() > 0)
-                    palavraDigitada = palavraDigitada.substring(0, palavraDigitada.length() - 1);
+            // Bloco saiu da tela — relança
+            if (blocoY < -blocoH) {
+                blocoAtivo = false;
+                tempoEspera = 0.5f;
             }
         }
     }
 
-    private void desenharHieroglifo(char letra, float x, float y) {
-        float s = 55;
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.9f, 0.75f, 0.1f, 0.3f);
-        shape.rect(x, y, s, s);
-        shape.end();
-        shape.begin(ShapeRenderer.ShapeType.Line);
-        shape.setColor(0.9f, 0.75f, 0.1f, 1);
-
-        float cx = x + s/2, cy = y + s/2, r = s * 0.3f;
-        int l = letra - 'A';
-        if (l % 5 == 0) { shape.circle(cx, cy, r); }
-        else if (l % 5 == 1) { shape.triangle(cx, cy+r, cx-r, cy-r, cx+r, cy-r); }
-        else if (l % 5 == 2) { shape.rect(cx-r, cy-r, r*2, r*2); }
-        else if (l % 5 == 3) { shape.line(cx-r, cy, cx+r, cy); shape.line(cx, cy-r, cx, cy+r); }
-        else { shape.line(cx-r, cy-r, cx+r, cy+r); shape.line(cx-r, cy+r, cx+r, cy-r); }
-        shape.end();
-
-        batch.begin();
-        font.setColor(1, 0.9f, 0.5f, 0.5f);
-        font.draw(batch, String.valueOf(letra), cx - 8, y - 5);
-        batch.end();
+    private float getPosicaoBlocoX(float w) {
+        int n = camadasTamanho[camadaAtual];
+        float camadaW = n * blocoW;
+        float startX = w/2 - camadaW/2f;
+        return startX + blocoNaCamada * blocoW;
     }
 
-    private void renderEspelho(float w, float h) {
-        float totalW = gradeSize * celulaSize;
-        float modeloX = w/2 - totalW - 40;
-        float jogadorX = w/2 + 40;
-        float gradeY = h/2 - totalW/2;
+    private float getPosicaoBlocoY() {
+        float y = piramideBaseY;
+        for (int c = 0; c < camadaAtual; c++) y += blocoH + 5;
+        return y;
+    }
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.15f, 0.1f, 0.02f, 0.9f);
-        shape.rect(w/2 - 420, gradeY - 60, 840, totalW + 120);
-        shape.end();
-
-        batch.begin();
-        font.setColor(0.9f, 0.75f, 0.1f, 1);
-        font.draw(batch, "Reproduza o hieroglifo na grade da direita!", w/2 - 280, h - 70);
-        font.setColor(0.7f, 0.7f, 0.7f, 1);
-        font.draw(batch, "MODELO", modeloX + totalW/2 - 50, gradeY + totalW + 30);
-        font.draw(batch, "SUA GRADE", jogadorX + totalW/2 - 60, gradeY + totalW + 30);
-        batch.end();
-
-        // Grade modelo
-        for (int r = 0; r < gradeSize; r++) {
-            for (int c = 0; c < gradeSize; c++) {
-                float cx = modeloX + c * celulaSize;
-                float cy = gradeY + (gradeSize - 1 - r) * celulaSize;
-                shape.begin(ShapeRenderer.ShapeType.Filled);
-                shape.setColor(modelo[r][c] ? 0.9f : 0.2f, modelo[r][c] ? 0.75f : 0.15f, modelo[r][c] ? 0.1f : 0.05f, 1);
-                shape.rect(cx + 2, cy + 2, celulaSize - 4, celulaSize - 4);
-                shape.end();
-            }
+    private void desenharPiramideConstruida(float w, float h) {
+        for (float[] b : blocosColocados) {
+            shape.begin(ShapeRenderer.ShapeType.Filled);
+            shape.setColor(0.7f, 0.55f, 0.2f, 1);
+            shape.rect(b[0], b[1], blocoW - 2, blocoH - 2);
+            shape.end();
+            shape.begin(ShapeRenderer.ShapeType.Line);
+            shape.setColor(0.9f, 0.75f, 0.1f, 1);
+            shape.rect(b[0], b[1], blocoW - 2, blocoH - 2);
+            shape.end();
+            batch.begin();
+            font.setColor(0.1f, 0.05f, 0f, 1);
+            font.draw(batch, String.valueOf((char)(int)b[2]), b[0] + blocoW/2 - 12, b[1] + blocoH - 8);
+            batch.end();
         }
 
-        // Grade jogador
-        for (int r = 0; r < gradeSize; r++) {
-            for (int c = 0; c < gradeSize; c++) {
-                float cx = jogadorX + c * celulaSize;
-                float cy = gradeY + (gradeSize - 1 - r) * celulaSize;
-                shape.begin(ShapeRenderer.ShapeType.Filled);
-                shape.setColor(jogadorGrade[r][c] ? 0.1f : 0.2f, jogadorGrade[r][c] ? 0.7f : 0.15f, jogadorGrade[r][c] ? 0.1f : 0.05f, 1);
-                shape.rect(cx + 2, cy + 2, celulaSize - 4, celulaSize - 4);
-                shape.end();
+        // Grade vazia da pirâmide
+        for (int c = 0; c < camadasTamanho.length; c++) {
+            int n = camadasTamanho[c];
+            float startX = w/2 - (n * blocoW)/2f;
+            float y = piramideBaseY + c * (blocoH + 5);
+            for (int b2 = 0; b2 < n; b2++) {
+                float x = startX + b2 * blocoW;
                 shape.begin(ShapeRenderer.ShapeType.Line);
-                shape.setColor(0.5f, 0.4f, 0.1f, 0.5f);
-                shape.rect(cx + 2, cy + 2, celulaSize - 4, celulaSize - 4);
+                shape.setColor(0.5f, 0.4f, 0.1f, 0.4f);
+                shape.rect(x, y, blocoW - 2, blocoH - 2);
                 shape.end();
-            }
-        }
-
-        // Toque na grade do jogador
-        if (Gdx.input.justTouched()) {
-            float tx = Gdx.input.getX();
-            float ty = h - Gdx.input.getY();
-            for (int r = 0; r < gradeSize; r++) {
-                for (int c = 0; c < gradeSize; c++) {
-                    float cx = jogadorX + c * celulaSize;
-                    float cy = gradeY + (gradeSize - 1 - r) * celulaSize;
-                    if (tx >= cx && tx <= cx + celulaSize && ty >= cy && ty <= cy + celulaSize) {
-                        jogadorGrade[r][c] = !jogadorGrade[r][c];
-                    }
-                }
-            }
-        }
-
-        // Botao confirmar
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.5f, 0.1f, 1);
-        shape.rect(w/2 - 80, 100, 160, 45);
-        shape.end();
-        batch.begin();
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "CONFIRMAR", w/2 - 65, 133);
-        batch.end();
-
-        if (Gdx.input.justTouched()) {
-            float tx = Gdx.input.getX();
-            float ty = h - Gdx.input.getY();
-            if (tx >= w/2 - 80 && tx <= w/2 + 80 && ty >= 100 && ty <= 145) {
-                // Verificar se grade do jogador == modelo
-                boolean igual = true;
-                for (int r = 0; r < gradeSize; r++) {
-                    for (int c = 0; c < gradeSize; c++) {
-                        if (jogadorGrade[r][c] != modelo[r][c]) { igual = false; break; }
-                    }
-                }
-                acertou = igual;
-                tempoMensagem = 1.5f;
-                if (!acertou) {
-                    for (int r = 0; r < gradeSize; r++)
-                        for (int c = 0; c < gradeSize; c++)
-                            jogadorGrade[r][c] = false;
-                }
             }
         }
     }
 
     private void renderConclusao(float w, float h) {
-        batch.begin();
-        batch.draw(fundo, 0, 0, w, h);
-        batch.end();
+        desenharPiramideConstruida(w, h);
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.15f, 0.1f, 0.02f, 0.88f);
         shape.rect(w/2 - 300, h/2 - 80, 600, 160);
         shape.end();
         batch.begin();
         font.setColor(0.9f, 0.75f, 0.1f, 1);
-        font.draw(batch, "Hieroglifos decifrados!", w/2 - 210, h/2 + 40);
+        font.draw(batch, "Piramide construida!", w/2 - 200, h/2 + 40);
         font.setColor(1, 1, 1, 1);
         font.draw(batch, "Toque para voltar", w/2 - 140, h/2 - 20);
         batch.end();
