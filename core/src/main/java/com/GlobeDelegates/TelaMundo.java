@@ -1,12 +1,12 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaMundo implements Screen {
@@ -57,6 +57,18 @@ public class TelaMundo implements Screen {
             case "Mexico":
                 casinha = new Texture("mexico/casa_mexico.png");
                 casinhaX = w * 0.22f; casinhaY = h * 0.55f - casinhaSize;
+                break;
+            case "Nova Zelandia":
+                casinha = new Texture("nz/casinha.png");
+                casinhaX = w * 0.82f; casinhaY = h * 0.42f - casinhaSize;
+                break;
+            case "Groelandia":
+                casinha = new Texture("groelandia/casinha.png");
+                casinhaX = w * 0.35f; casinhaY = h * 0.88f - casinhaSize;
+                break;
+            case "Austria":
+                casinha = new Texture("austria/casinha.png");
+                casinhaX = w * 0.50f; casinhaY = h * 0.72f - casinhaSize;
                 break;
             default:
                 casinha = new Texture("japao/japao_casinha2.png");
@@ -116,6 +128,15 @@ public class TelaMundo implements Screen {
                         break;
                     case "Mexico":
                         jogo.setScreen(new TelaVilagemMexico(jogo, jogador, false, false));
+                        break;
+                    case "Nova Zelandia":
+                        jogo.setScreen(new TelaVilagemNZ(jogo, jogador, false, false));
+                        break;
+                    case "Austria":
+                        jogo.setScreen(new TelaVilagemAustria(jogo, jogador, false, false));
+                        break;
+                    case "Groelandia":
+                        jogo.setScreen(new TelaVilagemGroelandia(jogo, jogador, false, false));
                         break;
                 }
             }
