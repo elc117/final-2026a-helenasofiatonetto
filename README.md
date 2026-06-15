@@ -8,6 +8,54 @@ Sofia Tonetto e Helena Kellermann - Sistemas de Informação
 ## Entrega Parcial (14/06)
 Link para o jogo no itch.io: [GlobeDelegates](https://hlk0000.itch.io/globedelegates)
 
+<b>O que foi feito até agora:</b>
+
+* etapas básicas: adicionado pasta oculta .devcontainer/ e formulários enviados;
+* exemplos: foi rodado os exemplos sugeridos para termos uma base de como funcionaria o projeto;
+* readme: adicionado a proposta do projeto, links usados como referẽncia, diagrama de classes, planejamento do trabalho e agora, uma breve revisão do que foi feito até a data de entrega parcial.
+* projeto: criado o projeto através do gdx-liftoff. Tendo ele rodado sem problemas, iniciou-se a criação das classes e implementação do trabalho em si. Pasta assets recebeu a inclusão de diversas imagens que foram selecionadas para se ter uma ideia da parte visual do trabalho. Aos poucos, conforme o projeto recebia incrementações, era realizado cada vez o teste para ver se estava rodando, desde as telas/cenários, quizzes, ações do jogador, inclusão total de um país, etc. Foi testado também os comandos para rodar o index.html do jogo, que funcionaram tranquilamente, sem problemas. Após a conclusão básica da primeira etapa do jogo, iniciou-se a parte do multiplayer.
+* itch.io: como grande parte dos requisitos para se entregar parcialmente o projeto foram atendidos, criou-se as contas no itch.io para realizar o upload do jogo para que o mesmo ficasse disponível para o público.
+* próximos passos: revisar mais uma vez o projeto, anotar as melhorias e implementa-las. A seguir, algumas anotações e revisão do trabalho.
+
+BUGS GERAIS
+* backspace não funciona na senha, tem que dar enter e escrever de novo. se esquece a senha/nao sabe, fica preso na tela
+* após completar um país, não encerrra o jogo, fica no cenário do país
+* mesmo errando todas as respostas, a delegação é concluida.
+
+PAÍSES
+* Egito: ok, tem bastante objetos a coletar
+* Japao: haiku do rio que corre, não some o 'que' da lista. não é problema pq se clicar nele ele some junto com o outro 'que'
+* Austria: ok
+* Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
+* Canada: ok
+
+SUGESTOES DE MUDANÇAS GERAIS
+* trocar setas por wasd, clicar para coletar por space;
+* se possivel, trocar clicar na opção por percorrer as opções e enter para escolher;
+* ter a opção de voltar no esc(mas jogador terá de recomeçar)
+* esc para desistir/voltar ao menu inicial
+* colocar um minimo de acertos nos quizzes
+
+No multiplayer:
+* trocar numero 1,2,3,4 das opções por A,B,C,D
+* fazer uma tela de explicação do jogo:<br>
+"digitou opção certa, ganha 1 pt"<br>
+"digitou oção errada, -1 vida"<br>
+"se um errar, o outro pode escolher uma opção"<br>
+"ganha quando adversário perder as 3 vidas"<br>
+
+Nos países:
+* Canada: no bonus, colocar os obstaculos vindo da vertical e o bonequinho ser um barril
+* Egito: colocar simbolos no lugar das letras, aumentar velocidade
+
+REFINAMENTO:
+* largura das imagens
+* placeholders
+* telas dos quizzes
+* imagens de fundo
+* jogador
+* localização dos objetos/entradas
+
 ## Proposta:
 Globe Delegates é voltado para a temática de viagens e [simulações da ONU](https://www.crimsoneducation.org/br/blog/simulacao-da-onu), também conhecidas como 'Model United Nations'. o MUN é um evento acadêmico no qual estudantes representam diplomatas de diferentes países para debater questões globais.<br>
 A ideia do jogo é explorar curiosidades e a história (de alguns) dos países envolvidos na ONU, ligando esse tema com java e grupos.
