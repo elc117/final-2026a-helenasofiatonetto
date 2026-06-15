@@ -5,6 +5,9 @@
 ## Identificação:
 Sofia Tonetto e Helena Kellermann - Sistemas de Informação
 
+## Entrega Parcial (14/06)
+Link para o jogo no itch.io: [GlobeDelegates](https://hlk0000.itch.io/globedelegates)
+
 ## Proposta:
 Globe Delegates é voltado para a temática de viagens e [simulações da ONU](https://www.crimsoneducation.org/br/blog/simulacao-da-onu), também conhecidas como 'Model United Nations'. o MUN é um evento acadêmico no qual estudantes representam diplomatas de diferentes países para debater questões globais.<br>
 A ideia do jogo é explorar curiosidades e a história (de alguns) dos países envolvidos na ONU, ligando esse tema com java e grupos.
