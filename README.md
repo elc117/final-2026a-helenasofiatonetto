@@ -180,7 +180,7 @@ Todas as sprites foram retiradas do Pinterest.
 ### Semana 3 — Fase 1: Escape Room
 - ✅ Implementar a estrutura básica do Escape Room com placeholders
 - ✅ Implementar a lógica de tarefas e quiz
-- [ ] Implementar o inventário de acessórios e o sistema de bônus
+- [ ] Implementar o sistema de bônus
 - [ ] Registrar dúvidas e decisões de design no README
 
 ### Semana 4 — Fase 2: Combate de delegações
@@ -190,10 +190,10 @@ Todas as sprites foram retiradas do Pinterest.
 - [ ] Testar o build web novamente
 
 ### Semana 5 — Polimento e entrega
-- [ ] Substituir placeholders pelos assets definitivos (com créditos no README)
-- [ ] Refatorar o código conforme necessidade e registrar no README
-- [ ] Revisar organização das classes e boas práticas de OOP
-- [ ] Garantir que ambas têm commits e entendem o projeto como um todo
+- ✅ Substituir placeholders pelos assets definitivos (com créditos no README)
+- ✅ Refatorar o código conforme necessidade e registrar no README
+- ✅ Revisar organização das classes e boas práticas de OOP
+- ✅ Garantir que ambas têm commits e entendem o projeto como um todo
 - [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções<br>
 
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
