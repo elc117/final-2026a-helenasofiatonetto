@@ -26,6 +26,7 @@ public class TelaVilagem implements Screen {
     private float[] entradaY;
     private float entradaSize = 70;
     private boolean[] desbloqueado;
+    private boolean[] faseConcluida;
 
     public TelaVilagem(GlobeDelegates jogo, Jogador jogador, boolean escapeCompleto, boolean delegacaoCompleta) {
         this.jogo = jogo;
@@ -45,6 +46,7 @@ public class TelaVilagem implements Screen {
         float h = Gdx.graphics.getHeight();
         configurarEntradas(jogador.getPais(), w, h);
         desbloqueado = new boolean[]{true, escapeCompleto, escapeCompleto && delegacaoCompleta};
+        faseConcluida = new boolean[]{escapeCompleto, delegacaoCompleta, false};
         persX = 50;
         persY = h * 0.3f;
     }

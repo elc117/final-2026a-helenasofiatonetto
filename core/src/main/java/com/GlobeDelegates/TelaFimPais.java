@@ -52,7 +52,7 @@ public class TelaFimPais implements Screen {
 
         tempo += delta;
         if (Gdx.input.isKeyJustPressed(Keys.ENTER) || (Gdx.input.justTouched() && tempo > 1f)) {
-            jogo.setScreen(new TelaMundo(jogo, jogador));
+            jogo.setScreen(new TelaEscolha(jogo));
         }
     }
 

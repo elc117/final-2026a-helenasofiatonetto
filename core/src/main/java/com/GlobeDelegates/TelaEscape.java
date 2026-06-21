@@ -151,10 +151,10 @@ public class TelaEscape implements Screen {
                 break;
             case "Egito":
                 pastaAssets = "egito";
-                nomesArquivo = new String[]{"Escaravelho","cruz","esfinge","gato","mumia","olho","papiro","piramide"};
-                nomesCorretos = new String[]{"Escaravelho","Ankh","Esfinge","Gato Sagrado","Mumia","Olho de Horus","Papiro","Piramide"};
-                iniciais = new String[]{"E","A","ES","GS","M","OH","P","PI"};
-                extensoes = new String[]{".png",".png",".png",".png",".png",".png",".png",".png"};
+                nomesArquivo = new String[]{"Escaravelho","cruz","esfinge","gato","mumia"};
+                nomesCorretos = new String[]{"Escaravelho","Ankh","Esfinge","Gato Sagrado","Mumia"};
+                iniciais = new String[]{"E","A","ES","GS","M"};
+                extensoes = new String[]{".png",".png",".png",".png",".png"};
                 break;
             case "Brasil":
                 pastaAssets = "brasil";

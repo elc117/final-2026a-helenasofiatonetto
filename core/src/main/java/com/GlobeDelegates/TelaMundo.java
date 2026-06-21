@@ -42,7 +42,7 @@ public class TelaMundo implements Screen {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
-        btnW = 120; btnH = 40;
+        btnW = 180; btnH = 45;
         btnX = 20; btnY = h - 60;
 
         switch (jogador.getPais()) {
@@ -80,7 +80,7 @@ public class TelaMundo implements Screen {
                 break;
             case "Bussola":
                 casinha = new Texture("bussola/casinha.png");
-                casinhaX = w * 0.15f; casinhaY = h * 0.65f - casinhaSize;
+                casinhaX = w * 0.08f; casinhaY = h * 0.20f - casinhaSize;
                 break;
             default:
                 casinha = new Texture("japao/japao_casinha2.png");
@@ -157,7 +157,7 @@ public class TelaMundo implements Screen {
                         jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Bussola":
-                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagemBussola(jogo, jogador, false, false, false));
                         break;
                 }
             }
@@ -169,7 +169,7 @@ public class TelaMundo implements Screen {
         shape.end();
         batch.begin();
         font.setColor(1, 1, 1, 1);
-        font.draw(batch, "< VOLTAR", btnX + 10, btnY + btnH - 8);
+        font.draw(batch, "Trocar Icone", btnX + 5, btnY + btnH - 8);
         batch.end();
 
         if (Gdx.input.justTouched()) {
@@ -180,14 +180,7 @@ public class TelaMundo implements Screen {
             }
         }
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.1f, 0.2f, 0.8f);
-        shape.rect(0, h - 50, w, 50);
-        shape.end();
-        batch.begin();
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Use as setas para andar. Chegue na casinha!", 20, h - 18);
-        batch.end();
+       
     }
 
     @Override public void show() {}

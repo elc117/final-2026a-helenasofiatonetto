@@ -26,9 +26,9 @@ public class BonusEgito implements BonusAtividade {
 
     // Blocos caindo
     private float blocoX, blocoY;
-    private float blocoVY = 150;
+    private float blocoVY = 250;
     private float blocoW = 80, blocoH = 60;
-    private char[] hieroglifos = {'A','B','C','D','E','F','G','H','I'};
+    private char[] hieroglifos = {'@','#','*','+','=','%','&','?','!'}; // simbolos
     private char blocoHieroglifo;
     private char blocoCorreto;
 
