@@ -1,15 +1,16 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaEscape implements Screen {
 
@@ -220,16 +221,6 @@ public class TelaEscape implements Screen {
         shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
         shape.end();
 
-        // HUD topo
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.1f, 0.2f, 0.85f);
-        shape.rect(0, h - 55, w, 55);
-        shape.end();
-        batch.begin();
-        font.setColor(1, 1, 0.5f, 1);
-        font.draw(batch, "Setas=mover | SPACE=coletar | ESC=sair | ESC=sair | Objetos: " + coletados + "/" + nomesArquivo.length, 15, h - 18);
-        batch.end();
-
         if (!mostraPergunta) {
             // Proximidade com objeto
             if (objetoAtual < nomesArquivo.length) {
@@ -242,7 +233,6 @@ public class TelaEscape implements Screen {
                     shape.end();
                     batch.begin();
                     font.setColor(0, 0, 0, 1);
-                    font.draw(batch, "SPACE: coletar", persX, persY + persSize * 2 + 38);
                     batch.end();
 
                     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
@@ -254,11 +244,6 @@ public class TelaEscape implements Screen {
             }
         } else {
             // Painel pergunta
-            shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.setColor(0.15f, 0.15f, 0.25f, 0.92f);
-            shape.rect(w/2 - 320, 60, 640, 480);
-            shape.end();
-
             batch.begin();
             font.setColor(1, 1, 0.5f, 1);
             font.draw(batch, "Qual e o nome deste objeto?", w/2 - 220, h - 80);
@@ -342,10 +327,9 @@ public class TelaEscape implements Screen {
             return;
         }
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.1f, 0.2f, 0.95f);
-        shape.rect(w/2 - 400, h/2 - 220, 800, 440);
-        shape.end();
+        batch.begin();
+        ImagemUtil.desenharPergaminho(batch, w/2 - 400, h/2 - 220, 800, 440);
+        batch.end();
 
         batch.begin();
         font.setColor(1, 1, 0.5f, 1);
@@ -381,7 +365,6 @@ public class TelaEscape implements Screen {
             font.draw(batch, "Senha incorreta! Tente novamente.", w/2 - 250, h/2 - 55);
         }
         font.setColor(0.8f, 0.8f, 0.5f, 1);
-        font.draw(batch, "ENTER=confirmar | BACKSPACE=apagar | ESC=sair", w/2 - 310, h/2 - 100);
         batch.end();
 
         // Input teclado

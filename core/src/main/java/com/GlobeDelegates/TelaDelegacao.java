@@ -1,15 +1,16 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaDelegacao implements Screen {
 
@@ -254,17 +255,15 @@ public class TelaDelegacao implements Screen {
     private void renderPergunta(float delta, float w, float h) {
         String[] p = perguntasSelecionadas[perguntaAtual];
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.08f, 0.08f, 0.15f, 0.92f);
-        shape.rect(w/2 - 380, 70, 760, 560);
-        shape.end();
-
         batch.begin();
-        font.setColor(1, 0.8f, 0.2f, 1);
+        ImagemUtil.desenharPergaminho(batch, w/2 - 380, 70, 760, 560);
+        batch.end();
+        batch.begin();
+        font.setColor(0.3f, 0.15f, 0.0f, 1);
         font.draw(batch, jogador.getPais() + " - Delegacao", w/2 - 180, h - 55);
-        font.setColor(0.8f, 0.8f, 0.8f, 1);
+        font.setColor(0.25f, 0.12f, 0.0f, 1);
         font.draw(batch, "Pergunta " + (perguntaAtual+1) + "/5  |  Acertos: " + acertos + "  |  Minimo: " + minimoAcertos, w/2 - 240, h - 85);
-        font.setColor(1, 1, 1, 1);
+        font.setColor(0.3f, 0.15f, 0.0f, 1);
         font.draw(batch, p[0], w/2 - 340, h - 130, 680, 1, true);
         batch.end();
 

@@ -22,10 +22,9 @@ public class TelaVilagem implements Screen {
     private float persSize = 40;
     private float persVX = 250;
 
-    private float[] entradaX = {150, 450, 750};
+    private float[] entradaX;
     private float[] entradaY;
-    private float entradaSize = 80;
-    private String[] labels = {"Escape Room", "Delegacao", "Bonus"};
+    private float entradaSize = 70;
     private boolean[] desbloqueado;
 
     public TelaVilagem(GlobeDelegates jogo, Jogador jogador, boolean escapeCompleto, boolean delegacaoCompleta) {
@@ -35,16 +34,54 @@ public class TelaVilagem implements Screen {
         shape = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(1.5f);
+        fundo = new Texture(getPasta(jogador.getPais()) + "/telaEscolha.jpg");
 
-        String pasta = getPasta(jogador.getPais());
-        fundo = new Texture(pasta + "/telaEscolha.jpg");
-
+        float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        entradaY = new float[]{h * 0.4f, h * 0.4f, h * 0.4f};
+        configurarEntradas(jogador.getPais(), w, h);
         desbloqueado = new boolean[]{true, escapeCompleto, escapeCompleto && delegacaoCompleta};
-
         persX = 50;
         persY = h * 0.3f;
+    }
+
+    private void configurarEntradas(String pais, float w, float h) {
+        switch (pais) {
+            case "Japao":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Mexico":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Canada":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Nova Zelandia":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Groelandia":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Austria":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Egito":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            case "Brasil":
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+                break;
+            default:
+                entradaX = new float[]{w*0.15f, w*0.50f, w*0.80f};
+                entradaY = new float[]{h*0.35f, h*0.40f, h*0.35f};
+        }
     }
 
     private String getPasta(String pais) {
@@ -79,25 +116,9 @@ public class TelaVilagem implements Screen {
             return;
         }
 
-        // WASD mover
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) persX -= persVX * delta;
+        if (Gdx.input.isKeyPressed(Keys.LEFT))  persX -= persVX * delta;
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
         persX = Math.max(0, Math.min(persX, w - persSize));
-
-        for (int i = 0; i < 3; i++) {
-            shape.begin(ShapeRenderer.ShapeType.Filled);
-            shape.setColor(desbloqueado[i] ? 0.2f : 0.5f, desbloqueado[i] ? 0.7f : 0.5f, 0.2f, 0.7f);
-            shape.rect(entradaX[i] - 10, entradaY[i] - 10, entradaSize + 20, entradaSize + 20);
-            shape.end();
-            batch.begin();
-            font.setColor(1, 1, 1, 1);
-            font.draw(batch, labels[i], entradaX[i] - 10, entradaY[i] + entradaSize + 25);
-            if (!desbloqueado[i]) {
-                font.setColor(1, 0.5f, 0.5f, 1);
-                font.draw(batch, "(bloqueado)", entradaX[i], entradaY[i] + entradaSize + 5);
-            }
-            batch.end();
-        }
 
         // Personagem
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -107,43 +128,35 @@ public class TelaVilagem implements Screen {
         shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
         shape.end();
 
+        // Entradas — só destaque visual quando perto
         for (int i = 0; i < 3; i++) {
             float dist = Math.abs(persX - entradaX[i]);
-            if (dist < 80 && desbloqueado[i]) {
-                shape.begin(ShapeRenderer.ShapeType.Filled);
-                shape.setColor(0.18f, 0.75f, 0.75f, 1);
-                shape.rect(persX - 10, persY + persSize * 2 + 10, 180, 40);
+            if (dist < 80) {
+                shape.begin(ShapeRenderer.ShapeType.Line);
+                if (!desbloqueado[i]) {
+                    shape.setColor(1f, 0.3f, 0.3f, 0.8f);
+                } else {
+                    shape.setColor(1f, 1f, 0.3f, 0.9f);
+                }
+                shape.rect(entradaX[i] - entradaSize/2, entradaY[i] - entradaSize/2, entradaSize, entradaSize);
+                shape.rect(entradaX[i] - entradaSize/2 + 3, entradaY[i] - entradaSize/2 + 3, entradaSize - 6, entradaSize - 6);
                 shape.end();
-                batch.begin();
-                font.setColor(0, 0, 0, 1);
-                font.draw(batch, "SPACE: entrar", persX, persY + persSize * 2 + 38);
-                batch.end();
 
-                if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
+                if (desbloqueado[i] && Gdx.input.isKeyJustPressed(Keys.SPACE)) {
                     if (i == 0) jogo.setScreen(new TelaEscape(jogo, jogador));
                     else if (i == 1) jogo.setScreen(new TelaDelegacao(jogo, jogador));
                     else jogo.setScreen(new TelaBonus(jogo, jogador));
                 }
             }
         }
-
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.1f, 0.1f, 0.2f, 0.85f);
-        shape.rect(0, h - 50, w, 50);
-        shape.end();
-        batch.begin();
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Setas=mover | SPACE=entrar | ESC=sair", 20, h - 18);
-        batch.end();
     }
 
     @Override public void show() {}
-    @Override public void resize(int width, int height) {}
+    @Override public void resize(int w, int h) {}
     @Override public void pause() {}
     @Override public void resume() {}
     @Override public void hide() {}
-    @Override
-    public void dispose() {
+    @Override public void dispose() {
         batch.dispose(); shape.dispose(); font.dispose(); fundo.dispose();
     }
 }

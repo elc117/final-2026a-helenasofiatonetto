@@ -127,7 +127,7 @@ public class BonusCanada implements BonusAtividade {
         shape.end();
         batch.begin();
         font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Vidas: " + vidas + " | Tempo: " + (int)(tempoTotal - tempoJogo) + "s | Setas=mover", 20, h - 15);
+        font.draw(batch, "Vidas: " + vidas + " | Tempo: " + (int)(tempoTotal - tempoJogo) + "s", 20, h - 15);
         batch.end();
     }
 
