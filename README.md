@@ -1,14 +1,32 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/8MfjtJ-y)
-
 <h1>GlobeDelegates</h1>
 
 ## Identificação:
 Sofia Tonetto e Helena Kellermann - Sistemas de Informação
 
-## Entrega Parcial (14/06)
 Link para o jogo no itch.io: [GlobeDelegates](https://hlk0000.itch.io/globedelegates)
 
-<b>O que foi feito até agora:</b>
+## Proposta:
+Globe Delegates é voltado para a temática de viagens e [simulações da ONU](https://www.crimsoneducation.org/br/blog/simulacao-da-onu), também conhecidas como 'Model United Nations'. o MUN é um evento acadêmico no qual estudantes representam diplomatas de diferentes países para debater questões globais.<br>
+A ideia do jogo é explorar curiosidades e a história (de alguns) dos países envolvidos na ONU, ligando esse tema com java e grupos.
+Desenvolvemos o jogo utilizando o framework de desenvolvimento de jogos [libGDX](https://libgdx.com/) em conjunto com a plataforma digital [itch.io](https://itch.io/) para hospedar na web.
+
+Primeira Parte - Simulação:
+* Personagem: jogador escolhe um acessório que determinará o país que representará, ou seja, de qual delegação (grupo) ele fará parte;
+* Delegação: composta pelo jogador com seu personagem escolhido;
+* Escape Room: sala com tarefas que deverão ser cumpridas como quizzes, coletar acessórios, etc.
+* Bônus: quem completar todo o escape room, ganhará uma menção honrosa ou outro acessório (como ocorre nas simulações), ou ainda, ganhará uma dica para a parte do Combate de Delegações;
+* Países: 8 países representados por 8 vestimentas diferentes;
+* Perguntas: baseadas nas curiosidades e história dos países representados.
+
+Segunda Parte - Combate de Delegações:
+* Multiplayer: parte pensada para jogar-se em conjunto, onde os alunos escolhem os personagens;
+* Perguntas: organizadas em códigos em Haskell, Prolog e Java, em que os jogadores deverão ler e identificar a saída correta do código ou o que está faltando nele.
+
+
+## Processo de desenvolvimento:
+comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
+
+### Entrega Parcial (14/06): O que foi feito até agora
 
 * etapas básicas: adicionado pasta oculta .devcontainer/ e formulários enviados;
 * exemplos: foi rodado os exemplos sugeridos para termos uma base de como funcionaria o projeto;
@@ -56,27 +74,52 @@ REFINAMENTO:
 * jogador
 * localização dos objetos/entradas
 
-## Proposta:
-Globe Delegates é voltado para a temática de viagens e [simulações da ONU](https://www.crimsoneducation.org/br/blog/simulacao-da-onu), também conhecidas como 'Model United Nations'. o MUN é um evento acadêmico no qual estudantes representam diplomatas de diferentes países para debater questões globais.<br>
-A ideia do jogo é explorar curiosidades e a história (de alguns) dos países envolvidos na ONU, ligando esse tema com java e grupos.
-Desenvolvemos o jogo utilizando o framework de desenvolvimento de jogos [libGDX](https://libgdx.com/) em conjunto com a plataforma digital [itch.io](https://itch.io/) para hospedar na web.
+### Entrega Final (21/06):
 
-Primeira Parte - Simulação:
-* Personagem: jogador escolhe um acessório que determinará o país que representará, ou seja, de qual delegação (grupo) ele fará parte;
-* Delegação: composta pelo jogador com seu personagem escolhido;
-* Escape Room: sala com tarefas que deverão ser cumpridas como quizzes, coletar acessórios, etc.
-* Bônus: quem completar todo o escape room, ganhará uma menção honrosa ou outro acessório (como ocorre nas simulações), ou ainda, ganhará uma dica para a parte do Combate de Delegações;
-* Países: 8 países representados por 8 vestimentas diferentes; 
-* Perguntas: baseadas nas curiosidades e história dos países representados.
+* Focamos em corrigir bugs e aprimorar o visual. Correções desde a entrega parcial:
 
-Segunda Parte - Combate de Delegações:
-* Multiplayer: parte pensada para jogar-se em conjunto, onde os alunos escolhem os personagens;
-* Perguntas: organizadas em códigos em Haskell, Prolog e Java, em que os jogadores deverão ler e identificar a saída correta do código ou o que está faltando nele.
+BUGS GERAIS
+* backspace não funciona na senha, tem que dar enter e escrever de novo. se esquece a senha/nao sabe, fica preso na tela
+* após completar um país, não encerrra o jogo, fica no cenário do país
+* mesmo errando todas as respostas, a delegação é concluida.
 
+PAÍSES
+* Egito: ok, tem bastante objetos a coletar
+* Japao: haiku do rio que corre, não some o 'que' da lista. não é problema pq se clicar nele ele some junto com o outro 'que'
+* Austria: ok
+* Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
+* Canada: ok
 
-## Processo de desenvolvimento: comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
+SUGESTOES DE MUDANÇAS GERAIS
+* trocar setas por wasd, clicar para coletar por space;
+* se possivel, trocar clicar na opção por percorrer as opções e enter para escolher;
+* ter a opção de voltar no esc(mas jogador terá de recomeçar)
+* esc para desistir/voltar ao menu inicial
+* colocar um minimo de acertos nos quizzes
 
-## Diagrama de classes: 
+No multiplayer:
+- ✅ Trocar numero 1,2,3,4 das opções por A,B,C,D
+- ✅ Removido a descrição do multiplayer "2 jogadores 1 teclado" no menu inicial
+* fazer uma tela de explicação do jogo:<br>
+"digitou opção certa, ganha 1 pt"<br>
+"digitou oção errada, -1 vida"<br>
+"se um errar, o outro pode escolher uma opção"<br>
+"ganha quando adversário perder as 3 vidas"<br>
+
+Nos países:
+* Canada: no bonus, colocar os obstaculos vindo da vertical e o bonequinho ser um barril
+* Egito: colocar simbolos no lugar das letras, aumentar velocidade
+
+REFINAMENTO:
+- ✅ Alterado arquivos: aplicação de polimorfismo e herança para redução da quantidade de arquivos
+* largura das imagens
+* placeholders
+* telas dos quizzes
+* imagens de fundo
+* jogador
+* localização dos objetos/entradas
+
+## Diagrama de classes:
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos
 <img width="300" alt="Somente classes do sistema" src="https://github.com/user-attachments/assets/e4f6edce-3f01-4824-bfd4-7f351605891a" />
 
@@ -88,7 +131,7 @@ Diagrama com somente as classes: <br>
 Diagrama com métodos, classes e atributos:<br>
 <img width="800" height="1128" alt="0F6948E7-D574-4DB3-B0E4-E1F0F8544C9E" src="https://github.com/user-attachments/assets/6685f4b0-4b4d-4009-877f-32317688a9ab" />
 
-Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama. 
+Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama.
 
 ## Orientações para execução: instalação de dependências, etc.
 
