@@ -20,6 +20,7 @@ public class TelaBonus implements Screen {
     }
 
     private BonusAtividade criarAtividade(String pais) {
+        if (pais.equals("Bussola")) pais = jogador.getPaisBussola();
         switch (pais) {
             case "Japao":         return new BonusJapao(jogo, jogador);
             case "Mexico":        return new BonusMexico(jogo, jogador);
@@ -45,7 +46,12 @@ public class TelaBonus implements Screen {
         atividade.update(delta);
         atividade.render();
         if (atividade.isConcluido()) {
-            jogo.setScreen(new TelaVilagem(jogo, jogador, true, true));
+            if (jogador.getPais().equals("Bussola") && jogador.getFaseBussola() < 2) {
+                jogador.avancarFaseBussola();
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
+            } else {
+                jogo.setScreen(new TelaFimPais(jogo, jogador));
+            }
         }
     }
 

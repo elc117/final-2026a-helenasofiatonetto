@@ -30,7 +30,14 @@ public class TelaDelegacao implements Screen {
     private boolean acertou = false;
     private float tempoMensagem = 0;
     private float tempoEspera = 0;
-    private float btnW = 520, btnH = 55;
+    
+    private float btnW = 520, btnH = 50;
+    private float pergW = 760, pergH = 560;
+    private float pergX, pergY;
+    
+    private float deslocamentoX = 0;
+    private float deslocamentoY = 0;
+
     private String[] opcoesAtuais;
     private int opcaoHighlight = 0;
     private boolean falhou = false;
@@ -41,8 +48,13 @@ public class TelaDelegacao implements Screen {
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         font = new BitmapFont();
-        font.getData().setScale(1.6f);
+        font.getData().setScale(1.5f);
+        
         fundo = new Texture(getPasta(jogador.getPais()) + "/delegacao.jpg");
+        
+        pergX = (Gdx.graphics.getWidth() - pergW) / 2;
+        pergY = (Gdx.graphics.getHeight() - pergH) / 2;
+        
         configurarPerguntas(jogador.getPais());
         sortearPerguntas();
     }
@@ -78,6 +90,7 @@ public class TelaDelegacao implements Screen {
                     {"O que significa 'Sensei'?","Professor","Guerreiro","Rei","Medico","0"},
                     {"O que significa 'Manga'?","Historia em quadrinhos","Fruta","Musica","Danca","0"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Mexico":
                 todasPerguntas = new String[][]{
@@ -92,6 +105,7 @@ public class TelaDelegacao implements Screen {
                     {"O que significa 'Andale'?","Vamos/Rapido","Pare","Cuidado","Obrigado","0"},
                     {"O que significa 'Orale'?","Ok/Ta bom","Nunca","Talvez","Por que?","0"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Canada":
                 todasPerguntas = new String[][]{
@@ -106,6 +120,7 @@ public class TelaDelegacao implements Screen {
                     {"Qual e a maior cidade do Canada?","Ottawa","Vancouver","Toronto","Montreal","2"},
                     {"Como se chama a arte de contar historias dos indigenas?","Escrita","Pintura rupestre","Tradicao oral","Teatro","2"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Nova Zelandia":
                 todasPerguntas = new String[][]{
@@ -120,6 +135,7 @@ public class TelaDelegacao implements Screen {
                     {"O que significa 'Mana' em maori?","Prestigio/Poder espiritual","Fraqueza","Tristeza","Alegria","0"},
                     {"Como se chama o time de rugby da Nova Zelandia?","Wallabies","Springboks","All Blacks","Lions","2"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Groelandia":
                 todasPerguntas = new String[][]{
@@ -132,26 +148,28 @@ public class TelaDelegacao implements Screen {
                     {"O que e permafrost?","Chuva congelada","Solo permanentemente congelado","Gelo flutuante","Neve compactada","1"},
                     {"Como os Inuit se locomovem no gelo?","Esquis","Treno puxado por cachorros","Snowmobile","Todas as opcoes","3"},
                     {"O que e a Aurora Boreal?","Uma tempestade artica","Luz solar refletida no gelo","Fenomeno luminoso causado pelo campo magnetico","Estrelas proximas","2"},
-                    {"Qual e o maior animal terrestre da Groelandia?","Urso polar","Boi almiscarado","Rena","Lobo artico","1"}
+                    {"Qual e a maior animal terrestre da Groelandia?","Urso polar","Boi almiscarado","Rena","Lobo artico","1"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Austria":
                 todasPerguntas = new String[][]{
                     {"Qual e a capital da Austria?","Salzburgo","Innsbruck","Viena","Graz","2"},
                     {"Qual compositor nasceu em Salzburgo?","Beethoven","Bach","Mozart","Chopin","2"},
                     {"Qual e a moeda da Austria?","Coroa","Franco","Euro","Schilling","2"},
-                    {"Qual e o rio mais famoso que passa por Viena?","Reno","Danubio","Elba","Sena","1"},
+                    {"Qual e a rio mais famoso que passa por Viena?","Reno","Danubio","Elba","Sena","1"},
                     {"Qual danca classica e tipica da Austria?","Tango","Valsa","Samba","Flamenco","1"},
-                    {"Qual e o prato tipico austriaco?","Schnitzel","Bratwurst","Strudel","Sauerkraut","0"},
+                    {"Qual e a prato tipico austriaco?","Schnitzel","Bratwurst","Strudel","Sauerkraut","0"},
                     {"Qual instrumento Mozart tocava desde crianca?","Violino e piano","Flauta","Harpa","Orgao","0"},
                     {"Como se chama a sala de concertos mais famosa de Viena?","Carnegie Hall","Royal Albert Hall","Musikverein","Scala de Milao","2"},
                     {"Quantos anos tinha Mozart quando compôs sua primeira sinfonia?","5","8","10","12","1"},
                     {"Como se chama o palacio imperial mais famoso de Viena?","Versalhes","Buckingham","Schonbrunn","Blenheim","2"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Egito":
                 todasPerguntas = new String[][]{
-                    {"Qual e o rio mais importante do Egito?","Nilo","Amazonas","Tigre","Eufrates","0"},
+                    {"Qual e a rio mais importante do Egito?","Nilo","Amazonas","Tigre","Eufrates","0"},
                     {"Qual farao mandou construir as piramides de Gize?","Tutankamon","Cleopatra","Queops","Ramses II","2"},
                     {"O que e uma mumia?","Um fantasma egipcio","Um corpo preservado quimicamente","Uma divindade","Um sacerdote","1"},
                     {"Qual e a escrita dos antigos egipcios?","Cuneiforme","Alfabeto latino","Hieroglifos","Ideogramas","2"},
@@ -162,23 +180,32 @@ public class TelaDelegacao implements Screen {
                     {"Qual deus guiava os mortos no alem?","Ra","Isis","Anubis","Seth","2"},
                     {"Qual e a capital atual do Egito?","Alexandria","Luxor","Cairo","Assua","2"}
                 };
+                minimoAcertos = 3;
                 break;
             case "Brasil":
                 todasPerguntas = new String[][]{
                     {"Qual e a capital do Brasil?","Sao Paulo","Rio de Janeiro","Brasilia","Salvador","2"},
                     {"Em que ano o Brasil se tornou independente?","1800","1822","1889","1910","1"},
-                    {"Qual e o maior rio do Brasil?","Sao Francisco","Parana","Amazonas","Tocantins","2"},
+                    {"Qual e a maior rio do Brasil?","Sao Francisco","Parana","Amazonas","Tocantins","2"},
                     {"Qual e a moeda do Brasil?","Cruzeiro","Real","Cruzado","Mil-Reis","1"},
                     {"Quem proclamou a Republica no Brasil?","Dom Pedro I","Dom Pedro II","Deodoro da Fonseca","Tiradentes","2"},
-                    {"Qual e o maior estado do Brasil?","Minas Gerais","Para","Mato Grosso","Amazonas","3"},
+                    {"Qual e a maior estado do Brasil?","Minas Gerais","Para","Mato Grosso","Amazonas","3"},
                     {"Qual regiao do Brasil tem o maior numero de estados?","Norte","Sul","Nordeste","Centro-Oeste","2"},
                     {"Qual e a culinaria tipica do Nordeste?","Feijoada","Churrasco","Baiao de Dois","Moqueca","2"},
-                    {"Qual e o prato nacional do Brasil?","Coxinha","Pao de queijo","Feijoada","Acaraje","2"},
+                    {"Qual e a prato nacional do Brasil?","Coxinha","Pao de queijo","Feijoada","Acaraje","2"},
                     {"Qual instrumento e mais usado no samba?","Guitarra","Pandeiro","Violao","Flauta","1"}
                 };
+                minimoAcertos = 3;
+                break;
+            case "Bussola":
+                todasPerguntas = new String[][]{
+                    {"Conteudo da Bussola nao configurado ainda.","...","...","...","...","0"}
+                };
+                minimoAcertos = 0;
                 break;
             default:
                 todasPerguntas = new String[][]{{"Pergunta?","A","B","C","D","0"}};
+                minimoAcertos = 1;
         }
     }
 
@@ -232,13 +259,11 @@ public class TelaDelegacao implements Screen {
 
         if (tempoEspera > 0) { tempoEspera -= delta; return; }
 
-        // Falhou — mostrar tela de falha
         if (falhou) {
             renderFalha(w, h);
             return;
         }
 
-        // Concluiu as 5 perguntas
         if (perguntaAtual >= perguntasSelecionadas.length) {
             if (acertos >= minimoAcertos) {
                 renderConclusao(w, h);
@@ -255,47 +280,65 @@ public class TelaDelegacao implements Screen {
     private void renderPergunta(float delta, float w, float h) {
         String[] p = perguntasSelecionadas[perguntaAtual];
 
+        float currentX = pergX + deslocamentoX;
+        float currentY = pergY + deslocamentoY;
+
         batch.begin();
-        ImagemUtil.desenharPergaminho(batch, w/2 - 380, 70, 760, 560);
-        batch.end();
-        batch.begin();
-        font.setColor(0.3f, 0.15f, 0.0f, 1);
-        font.draw(batch, jogador.getPais() + " - Delegacao", w/2 - 180, h - 55);
-        font.setColor(0.25f, 0.12f, 0.0f, 1);
-        font.draw(batch, "Pergunta " + (perguntaAtual+1) + "/5  |  Acertos: " + acertos + "  |  Minimo: " + minimoAcertos, w/2 - 240, h - 85);
-        font.setColor(0.3f, 0.15f, 0.0f, 1);
-        font.draw(batch, p[0], w/2 - 340, h - 130, 680, 1, true);
+        ImagemUtil.desenharPergaminho(batch, currentX, currentY, pergW, pergH);
+        
+        font.setColor(0.4f, 0.2f, 0.1f, 1);
+        font.draw(batch, jogador.getPais().toUpperCase() + " - DELEGAÇÃO", currentX + 90, currentY + pergH - 55);
+        
+        font.setColor(0.5f, 0.4f, 0.3f, 1);
+        font.draw(batch, "Pergunta " + (perguntaAtual+1) + "/5  |  Acertos: " + acertos + "  |  Minimo: " + minimoAcertos, currentX + 90, currentY + pergH - 90);
+        
+        font.setColor(0.15f, 0.15f, 0.15f, 1);
+        font.draw(batch, p[0], currentX + 90, currentY + pergH - 140, pergW - 180, 1, true);
         batch.end();
 
-        // Navegar opcoes com W/S
-        if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.UP))
-            opcaoHighlight = (opcaoHighlight - 1 + 4) % 4;
-        if (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.DOWN))
-            opcaoHighlight = (opcaoHighlight + 1) % 4;
+        if (Gdx.input.isKeyJustPressed(Keys.UP)) opcaoHighlight = (opcaoHighlight - 1 + 4) % 4;
+        if (Gdx.input.isKeyJustPressed(Keys.DOWN)) opcaoHighlight = (opcaoHighlight + 1) % 4;
+
+        float bx = currentX + (pergW - btnW) / 2;
 
         for (int i = 0; i < 4; i++) {
-            float bx = w/2 - btnW/2;
-            float by = 310 - i * 75;
+            float by = currentY + 235 - i * 62;
+            
+            shape.setProjectionMatrix(batch.getProjectionMatrix());
             shape.begin(ShapeRenderer.ShapeType.Filled);
             if (opcaoSelecionada == i) {
-                shape.setColor(acertou ? 0.1f : 0.8f, acertou ? 0.8f : 0.1f, 0.1f, 1);
+                shape.setColor(acertou ? 0.2f : 0.7f, acertou ? 0.6f : 0.2f, 0.2f, 1);
             } else if (opcaoHighlight == i) {
-                shape.setColor(0.35f, 0.35f, 0.6f, 1);
+                shape.setColor(0.5f, 0.4f, 0.25f, 1);
             } else {
-                shape.setColor(0.2f, 0.2f, 0.38f, 1);
+                shape.setColor(0.7f, 0.6f, 0.45f, 0.65f);
             }
             shape.rect(bx, by, btnW, btnH);
             shape.end();
+            
             batch.begin();
-            font.setColor(1, 1, 1, 1);
+            font.setColor(0.1f, 0.1f, 0.1f, 1);
             String[] letras = {"A","B","C","D"};
-            font.draw(batch, letras[i] + ". " + opcoesAtuais[i], bx + 15, by + btnH - 10);
+            font.draw(batch, letras[i] + ". " + opcoesAtuais[i], bx + 20, by + btnH - 15);
             batch.end();
         }
 
         batch.begin();
-        font.setColor(0.6f, 0.6f, 0.8f, 0.8f);
-        font.draw(batch, "Setas=navegar | ENTER=confirmar | ESC=sair", w/2 - 260, 55);
+        font.setColor(0.5f, 0.4f, 0.3f, 1);
+        font.draw(batch, "Setas = Navegar  |  ENTER = Confirmar  |  ESC = Sair", currentX + 90, currentY + 55);
+        
+        if (opcaoSelecionada != -1) {
+            tempoMensagem -= delta;
+            font.setColor(acertou ? 0.1f : 0.7f, acertou ? 0.5f : 0.1f, 0.1f, 1);
+            font.draw(batch, acertou ? "CORRETO!" : "ERRADO!", currentX + (pergW - 100) / 2, currentY + 55);
+            
+            if (tempoMensagem <= 0) {
+                perguntaAtual++;
+                opcaoSelecionada = -1;
+                opcoesAtuais = null;
+                tempoEspera = 0.3f;
+            }
+        }
         batch.end();
 
         if (opcaoSelecionada == -1) {
@@ -304,25 +347,10 @@ public class TelaDelegacao implements Screen {
                 float tx = Gdx.input.getX();
                 float ty = h - Gdx.input.getY();
                 for (int i = 0; i < 4; i++) {
-                    float bx = w/2 - btnW/2;
-                    float by = 310 - i * 75;
+                    float by = currentY + 235 - i * 62;
                     if (tx >= bx && tx <= bx + btnW && ty >= by && ty <= by + btnH)
                         confirmarOpcao(i, p);
                 }
-            }
-        }
-
-        if (opcaoSelecionada != -1) {
-            tempoMensagem -= delta;
-            batch.begin();
-            font.setColor(acertou ? 0.2f : 1f, acertou ? 1f : 0.2f, 0.2f, 1);
-            font.draw(batch, acertou ? "Correto!" : "Errado!", w/2 - 70, 75);
-            batch.end();
-            if (tempoMensagem <= 0) {
-                perguntaAtual++;
-                opcaoSelecionada = -1;
-                opcoesAtuais = null;
-                tempoEspera = 0.3f;
             }
         }
     }
@@ -331,35 +359,41 @@ public class TelaDelegacao implements Screen {
         opcaoSelecionada = i;
         acertou = (i == Integer.parseInt(p[5]));
         if (acertou) acertos++;
-        tempoMensagem = 1.5f;
+        tempoMensagem = 1.2f;
     }
 
     private void renderFalha(float w, float h) {
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.5f, 0f, 0f, 0.92f);
-        shape.rect(w/2 - 320, h/2 - 100, 640, 200);
-        shape.end();
+        float currentX = pergX + deslocamentoX;
+        float currentY = pergY + deslocamentoY;
+
         batch.begin();
-        font.setColor(1, 0.3f, 0.3f, 1);
-        font.draw(batch, "Poucos acertos! " + acertos + "/" + minimoAcertos + " necessarios", w/2 - 290, h/2 + 55);
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "ENTER=tentar novamente | ESC=sair", w/2 - 260, h/2);
+        ImagemUtil.desenharPergaminho(batch, currentX, currentY, pergW, pergH);
+        font.setColor(0.7f, 0.1f, 0.1f, 1);
+        font.draw(batch, "POUCOS ACERTOS!", currentX + 90, currentY + pergH - 150, pergW - 180, 1, true);
+        font.setColor(0.2f, 0.2f, 0.2f, 1);
+        font.draw(batch, "Voce acertou " + acertos + " de " + minimoAcertos + " necessarios.", currentX + 90, currentY + pergH - 220, pergW - 180, 1, true);
+        font.setColor(0.4f, 0.3f, 0.2f, 1);
+        font.draw(batch, "Pressione ENTER para tentar novamente", currentX + 90, currentY + 100, pergW - 180, 1, true);
         batch.end();
+        
         if (Gdx.input.isKeyJustPressed(Keys.ENTER)) sortearPerguntas();
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) jogo.setScreen(new TelaEscolha(jogo));
     }
 
     private void renderConclusao(float w, float h) {
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.05f, 0.2f, 0.05f, 0.92f);
-        shape.rect(w/2 - 300, h/2 - 100, 600, 200);
-        shape.end();
+        float currentX = pergX + deslocamentoX;
+        float currentY = pergY + deslocamentoY;
+
         batch.begin();
-        font.setColor(0.3f, 1f, 0.3f, 1);
-        font.draw(batch, "Delegacao concluida! " + acertos + "/5 acertos!", w/2 - 270, h/2 + 55);
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "ENTER=continuar | ESC=sair", w/2 - 200, h/2);
+        ImagemUtil.desenharPergaminho(batch, currentX, currentY, pergW, pergH);
+        font.setColor(0.1f, 0.5f, 0.1f, 1);
+        font.draw(batch, "DELEGAÇÃO CONCLUÍDA!", currentX + 90, currentY + pergH - 150, pergW - 180, 1, true);
+        font.setColor(0.2f, 0.2f, 0.2f, 1);
+        font.draw(batch, "Parabens por conseguir " + acertos + "/5 acertos!", currentX + 90, currentY + pergH - 220, pergW - 180, 1, true);
+        font.setColor(0.4f, 0.3f, 0.2f, 1);
+        font.draw(batch, "Pressione ENTER para continuar", currentX + 90, currentY + 100, pergW - 180, 1, true);
         batch.end();
+        
         if (Gdx.input.isKeyJustPressed(Keys.ENTER) || Gdx.input.justTouched())
             jogo.setScreen(new TelaVilagem(jogo, jogador, true, true));
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) jogo.setScreen(new TelaEscolha(jogo));

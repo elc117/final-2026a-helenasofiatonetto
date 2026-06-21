@@ -46,11 +46,16 @@ public class TelaEscape implements Screen {
     private float persVX = 250;
     private float persSize = 40;
     private float objSize = 100;
-    private float btnW = 320, btnH = 55;
+    private float btnW = 520, btnH = 50;
+    private float pergW = 760, pergH = 560;
+    private float pergX, pergY;
+    
+    private float deslocamentoX = 0;
+    private float deslocamentoY = 0;
+    
     private String[] opcoesMisturadas;
     private float[] objX, objY;
 
-    // Selecao de opcao com teclado
     private int opcaoHighlight = 0;
 
     public TelaEscape(GlobeDelegates jogo, Jogador jogador) {
@@ -59,7 +64,7 @@ public class TelaEscape implements Screen {
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         font = new BitmapFont();
-        font.getData().setScale(1.6f);
+        font.getData().setScale(1.5f);
 
         configurarPais(jogador.getPais());
 
@@ -89,6 +94,15 @@ public class TelaEscape implements Screen {
 
         persX = 50;
         persY = h * 0.15f;
+
+        pergX = (Gdx.graphics.getWidth() - pergW) / 2;
+        pergY = (Gdx.graphics.getHeight() - pergH) / 2;
+
+        StringBuilder montagemSenha = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            montagemSenha.append(iniciais[ordemEmbaralhada[i]]);
+        }
+        senhaCorreta = montagemSenha.toString();
     }
 
     private void configurarPais(String pais) {
@@ -190,14 +204,12 @@ public class TelaEscape implements Screen {
         if (coletados >= nomesArquivo.length) mostraSenha = true;
         if (mostraSenha) { renderSenha(w, h); return; }
 
-        // ESC volta ao menu
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             jogo.setScreen(new TelaEscolha(jogo));
             return;
         }
 
         if (!mostraPergunta) {
-            // WASD para mover
             if (Gdx.input.isKeyPressed(Keys.LEFT)) persX -= persVX * delta;
             if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
             if (Gdx.input.isKeyPressed(Keys.UP)) persY += persVX * delta;
@@ -206,14 +218,13 @@ public class TelaEscape implements Screen {
             persY = Math.max(0, Math.min(persY, h - persSize * 2));
         }
 
-        // Objetos
         batch.begin();
         for (int i = objetoAtual; i < nomesArquivo.length; i++) {
             batch.draw(objetos[ordemEmbaralhada[i]], objX[i], objY[i], objSize, objSize);
         }
         batch.end();
 
-        // Personagem
+        shape.setProjectionMatrix(batch.getProjectionMatrix());
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.2f, 0.4f, 0.9f, 1);
         shape.rect(persX, persY, persSize, persSize * 1.5f);
@@ -222,17 +233,19 @@ public class TelaEscape implements Screen {
         shape.end();
 
         if (!mostraPergunta) {
-            // Proximidade com objeto
             if (objetoAtual < nomesArquivo.length) {
                 float distX = Math.abs(persX - objX[objetoAtual]);
                 float distY = Math.abs(persY - objY[objetoAtual]);
                 if (distX < 80 && distY < 80) {
+                    shape.setProjectionMatrix(batch.getProjectionMatrix());
                     shape.begin(ShapeRenderer.ShapeType.Filled);
                     shape.setColor(0.18f, 0.75f, 0.75f, 1);
                     shape.rect(persX - 10, persY + persSize * 2 + 10, 180, 40);
                     shape.end();
+                    
                     batch.begin();
                     font.setColor(0, 0, 0, 1);
+                    font.draw(batch, "ESPAÇO para investigar", persX - 5, persY + persSize * 2 + 35);
                     batch.end();
 
                     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
@@ -243,40 +256,47 @@ public class TelaEscape implements Screen {
                 }
             }
         } else {
-            // Painel pergunta
+            float currentX = pergX + deslocamentoX;
+            float currentY = pergY + deslocamentoY;
+
             batch.begin();
-            font.setColor(1, 1, 0.5f, 1);
-            font.draw(batch, "Qual e o nome deste objeto?", w/2 - 220, h - 80);
-            batch.draw(objetos[idxAtual()], w/2 - 55, 400, 110, 110);
+            ImagemUtil.desenharPergaminho(batch, currentX, currentY, pergW, pergH);
+            
+            font.setColor(0.4f, 0.2f, 0.1f, 1);
+            font.draw(batch, "ESCAPE ROOM - PERGUNTA", currentX + 90, currentY + pergH - 55);
+            font.setColor(0.15f, 0.15f, 0.15f, 1);
+            font.draw(batch, "Qual e o nome deste objeto?", currentX + 90, currentY + pergH - 100);
+            
+            batch.draw(objetos[idxAtual()], currentX + (pergW - 100) / 2, currentY + 310, 100, 100);
             batch.end();
 
-            // Navegacao com setas/WASD entre opcoes
-            if (Gdx.input.isKeyJustPressed(Keys.UP) || Gdx.input.isKeyJustPressed(Keys.UP))
-                opcaoHighlight = (opcaoHighlight - 1 + 4) % 4;
-            if (Gdx.input.isKeyJustPressed(Keys.DOWN) || Gdx.input.isKeyJustPressed(Keys.DOWN))
-                opcaoHighlight = (opcaoHighlight + 1) % 4;
+            if (Gdx.input.isKeyJustPressed(Keys.UP)) opcaoHighlight = (opcaoHighlight - 1 + 4) % 4;
+            if (Gdx.input.isKeyJustPressed(Keys.DOWN)) opcaoHighlight = (opcaoHighlight + 1) % 4;
+
+            float bx = currentX + (pergW - btnW) / 2;
 
             for (int i = 0; i < 4; i++) {
-                float bx = w/2 - btnW/2;
-                float by = 360 - i * 75;
+                float by = currentY + 235 - i * 62;
+                
+                shape.setProjectionMatrix(batch.getProjectionMatrix());
                 shape.begin(ShapeRenderer.ShapeType.Filled);
                 if (opcaoSelecionada == i) {
-                    shape.setColor(acertou ? 0.1f : 0.8f, acertou ? 0.8f : 0.1f, 0.1f, 1);
+                    shape.setColor(acertou ? 0.2f : 0.7f, acertou ? 0.6f : 0.2f, 0.2f, 1);
                 } else if (opcaoHighlight == i) {
-                    shape.setColor(0.4f, 0.4f, 0.7f, 1);
+                    shape.setColor(0.5f, 0.4f, 0.25f, 1);
                 } else {
-                    shape.setColor(0.25f, 0.25f, 0.45f, 1);
+                    shape.setColor(0.7f, 0.6f, 0.45f, 0.65f);
                 }
                 shape.rect(bx, by, btnW, btnH);
                 shape.end();
+                
                 batch.begin();
-                font.setColor(1, 1, 1, 1);
+                font.setColor(0.1f, 0.1f, 0.1f, 1);
                 String letra = new String[]{"A","B","C","D"}[i];
-                font.draw(batch, letra + ". " + opcoesMisturadas[i], bx + 15, by + btnH - 10);
+                font.draw(batch, letra + ". " + opcoesMisturadas[i], bx + 20, by + btnH - 15);
                 batch.end();
             }
 
-            // Confirmar com ENTER ou toque
             if (opcaoSelecionada == -1) {
                 if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
                     selecionarOpcao(opcaoHighlight);
@@ -285,8 +305,7 @@ public class TelaEscape implements Screen {
                     float tx = Gdx.input.getX();
                     float ty = h - Gdx.input.getY();
                     for (int i = 0; i < 4; i++) {
-                        float bx = w/2 - btnW/2;
-                        float by = 360 - i * 75;
+                        float by = currentY + 235 - i * 62;
                         if (tx >= bx && tx <= bx + btnW && ty >= by && ty <= by + btnH) {
                             selecionarOpcao(i);
                         }
@@ -297,12 +316,11 @@ public class TelaEscape implements Screen {
             if (opcaoSelecionada != -1) {
                 tempoMensagem -= delta;
                 batch.begin();
-                font.setColor(acertou ? 0.2f : 1f, acertou ? 1f : 0.2f, 0.2f, 1);
-                font.draw(batch, acertou ? "Correto!" : "Errado! Tente novamente!", w/2 - 160, 75);
+                font.setColor(acertou ? 0.1f : 0.7f, acertou ? 0.5f : 0.1f, 0.1f, 1);
+                font.draw(batch, acertou ? "CORRETO!" : "ERRADO! Tente novamente!", currentX + (pergW - 200) / 2, currentY + 55);
                 batch.end();
                 if (tempoMensagem <= 0) {
                     if (acertou) {
-                        senhaCorreta += iniciais[idxAtual()];
                         coletados++;
                         objetoAtual++;
                     }
@@ -317,64 +335,74 @@ public class TelaEscape implements Screen {
     private void selecionarOpcao(int i) {
         opcaoSelecionada = i;
         acertou = opcoesMisturadas[i].equals(nomesCorretos[idxAtual()]);
-        tempoMensagem = 1.5f;
+        tempoMensagem = 1.3f;
     }
 
     private void renderSenha(float w, float h) {
-        // ESC volta
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
             jogo.setScreen(new TelaEscolha(jogo));
             return;
         }
 
-        batch.begin();
-        ImagemUtil.desenharPergaminho(batch, w/2 - 400, h/2 - 220, 800, 440);
-        batch.end();
+        float currentX = pergX + deslocamentoX;
+        float currentY = pergY + deslocamentoY;
 
         batch.begin();
-        font.setColor(1, 1, 0.5f, 1);
-        font.draw(batch, "Todos os objetos coletados!", w/2 - 240, h/2 + 180);
-        font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Digite as iniciais na ordem que coletou:", w/2 - 300, h/2 + 130);
+        ImagemUtil.desenharPergaminho(batch, currentX, currentY, pergW, pergH);
+        
+        font.setColor(0.4f, 0.2f, 0.1f, 1);
+        font.draw(batch, "TODOS OS OBJETOS COLETADOS!", currentX + 90, currentY + pergH - 55);
+        font.setColor(0.15f, 0.15f, 0.15f, 1);
+        font.draw(batch, "Digite as iniciais na ordem que coletou:", currentX + 90, currentY + pergH - 100);
 
-        // Dicas de iniciais
-        StringBuilder dica = new StringBuilder();
+        StringBuilder dica1 = new StringBuilder();
+        StringBuilder dica2 = new StringBuilder();
         for (int i = 0; i < iniciais.length; i++) {
-            dica.append(iniciais[i]).append("=").append(nomesCorretos[i]);
-            if (i < iniciais.length - 1) dica.append("  ");
-            if (i == 3) {
-                batch.end();
-                batch.begin();
-                font.draw(batch, dica.toString(), w/2 - 370, h/2 + 90);
-                dica = new StringBuilder();
+            String fragmento = iniciais[i] + "=" + nomesCorretos[i] + "   ";
+            if (i < 4) {
+                dica1.append(fragmento);
+            } else {
+                dica2.append(fragmento);
             }
         }
-        if (dica.length() > 0) font.draw(batch, dica.toString(), w/2 - 370, h/2 + 55);
+        
+        font.setColor(0.35f, 0.35f, 0.35f, 1);
+        font.draw(batch, dica1.toString(), currentX + 90, currentY + pergH - 150);
+        if (dica2.length() > 0) {
+            font.draw(batch, dica2.toString(), currentX + 90, currentY + pergH - 185);
+        }
         batch.end();
 
+        float campoW = 450;
+        float campoH = 45;
+        float campoX = currentX + (pergW - campoW) / 2;
+        float campoY = currentY + 160;
+
+        shape.setProjectionMatrix(batch.getProjectionMatrix());
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.2f, 0.2f, 0.35f, 1);
-        shape.rect(w/2 - 220, h/2 - 10, 440, 55);
+        shape.setColor(0.7f, 0.6f, 0.45f, 0.8f);
+        shape.rect(campoX, campoY, campoW, campoH);
         shape.end();
 
         batch.begin();
-        font.setColor(0.5f, 1f, 0.5f, 1);
-        font.draw(batch, senhaDigitada + "|", w/2 - 200, h/2 + 35);
+        font.setColor(0.1f, 0.1f, 0.1f, 1);
+        font.draw(batch, senhaDigitada + "|", campoX + 20, campoY + campoH - 14);
+        
         if (senhaErrada) {
-            font.setColor(1, 0.3f, 0.3f, 1);
-            font.draw(batch, "Senha incorreta! Tente novamente.", w/2 - 250, h/2 - 55);
+            font.setColor(0.7f, 0.1f, 0.1f, 1);
+            font.draw(batch, "Senha incorreta! Tente novamente.", currentX + 90, campoY - 30);
         }
-        font.setColor(0.8f, 0.8f, 0.5f, 1);
+        
+        font.setColor(0.4f, 0.3f, 0.2f, 1);
+        font.draw(batch, "ENTER = Confirmar  |  BACKSPACE = Apagar", currentX + 90, currentY + 55);
         batch.end();
 
-        // Input teclado
-        for (int k = Keys.LEFT; k <= Keys.Z; k++) {
+        for (int k = Keys.A; k <= Keys.Z; k++) {
             if (Gdx.input.isKeyJustPressed(k)) {
                 senhaDigitada += Keys.toString(k).toUpperCase();
                 senhaErrada = false;
             }
         }
-        // BACKSPACE funcionando
         if (Gdx.input.isKeyJustPressed(Keys.BACKSPACE)) {
             if (senhaDigitada.length() > 0) {
                 senhaDigitada = senhaDigitada.substring(0, senhaDigitada.length() - 1);

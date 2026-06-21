@@ -1,14 +1,15 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import java.util.ArrayList;
 
 public class TelaBonusCanada implements Screen {
 
@@ -69,7 +70,10 @@ public class TelaBonusCanada implements Screen {
         // Mover barco
         if (Gdx.input.isKeyPressed(Keys.UP))   barcoY += barcoVX * delta;
         if (Gdx.input.isKeyPressed(Keys.DOWN)) barcoY -= barcoVX * delta;
+        if (Gdx.input.isKeyPressed(Keys.LEFT))  barcoX -= barcoVX * delta;
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) barcoX += barcoVX * delta;
         barcoY = Math.max(0, Math.min(barcoY, h - barcoH));
+        barcoX = Math.max(0, Math.min(barcoX, w - barcoW));
 
         // Spawnar pedras
         tempoSpawnPedra += delta;

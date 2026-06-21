@@ -7,6 +7,7 @@ public class Jogador {
     private String cor;
     private String nome;
     private int pontos;
+    private int faseBussola = 0; // 0=China, 1=Peru, 2=Grecia
 
     public Jogador() {
         this.pontos = 0;
@@ -40,4 +41,14 @@ public class Jogador {
     public String getIcone() { return icone; }
     public String getPais()  { return pais; }
     public String getCor()   { return cor; }
+    public int getFaseBussola() { return faseBussola; }
+    public void avancarFaseBussola() { faseBussola++; }
+    public String getPaisBussola() {
+        switch (faseBussola) {
+            case 0: return "Bussola-China";
+            case 1: return "Bussola-Peru";
+            case 2: return "Bussola-Grecia";
+            default: return "Bussola-Grecia";
+        }
+    }
 }

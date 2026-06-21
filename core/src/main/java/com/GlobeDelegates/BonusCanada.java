@@ -1,12 +1,13 @@
 package com.GlobeDelegates;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import java.util.ArrayList;
 
 public class BonusCanada implements BonusAtividade {
     private GlobeDelegates jogo;
@@ -17,13 +18,20 @@ public class BonusCanada implements BonusAtividade {
     private Texture fundo;
     private boolean concluido = false;
 
+    // Barril (Seu "barco")
     private float barrilX, barrilY;
     private float barrilW = 50, barrilH = 60;
-    private float barrilVX = 300;
+    private float barrilVX = 450; // AUMENTADO: Velocidade do barril (era 300)
 
-    private ArrayList<float[]> pedras = new ArrayList<>();
+    // Classe simples para representar os obstáculos (formas)
+    private static class Objeto {
+        float x, y;
+        float vx, vy; // Velocidades X e Y separadas
+        float tamanho = 45;
+    }
+
+    private ArrayList<Objeto> obstaculos = new ArrayList<>();
     private float tempoSpawn = 0;
-    private float pedraW = 45, pedraH = 45;
 
     private boolean gameOver = false;
     private float tempoJogo = 0;
@@ -54,27 +62,64 @@ public class BonusCanada implements BonusAtividade {
         tempoJogo += delta;
         if (tempoJogo >= tempoTotal) { concluido = true; return; }
 
+        // Movimentação do Barril
         if (Gdx.input.isKeyPressed(Keys.LEFT))  barrilX -= barrilVX * delta;
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) barrilX += barrilVX * delta;
+        if (Gdx.input.isKeyPressed(Keys.UP))    barrilY += barrilVX * delta;
+        if (Gdx.input.isKeyPressed(Keys.DOWN))  barrilY -= barrilVX * delta;
         barrilX = Math.max(0, Math.min(barrilX, w - barrilW));
+        barrilY = Math.max(0, Math.min(barrilY, h - barrilH));
 
+        // Mecânica de Nascimento (Spawn) dos Objetos
         tempoSpawn += delta;
-        float intervalo = Math.max(0.4f, 1.2f - tempoJogo * 0.02f);
+        float intervalo = Math.max(0.3f, 1.0f - tempoJogo * 0.03f); // Spawna mais rápido com o tempo
         if (tempoSpawn >= intervalo) {
             tempoSpawn = 0;
-            // Pedras caem de cima (vertical)
-            float px = (float)(Math.random() * (w - pedraW));
-            pedras.add(new float[]{px, h + pedraH, (float)(Math.random() * 150 + 150)});
+            
+            Objeto novo = new Objeto();
+            // Escolhe aleatoriamente se o objeto vem de CIMA(0), da ESQUERDA(1) ou da DIREITA(2)
+            int tipoSpawn = (int)(Math.random() * 3); 
+
+            if (tipoSpawn == 0) {
+                // Vem de CIMA (Vertical)
+                novo.x = (float)(Math.random() * (w - novo.tamanho));
+                novo.y = h + novo.tamanho;
+                novo.vx = 0;
+                novo.vy = -(float)(Math.random() * 200 + 250); // AUMENTADO (Velocidade de queda)
+            } else if (tipoSpawn == 1) {
+                // Vem da ESQUERDA (Horizontal)
+                novo.x = -novo.tamanho;
+                novo.y = (float)(Math.random() * (h * 0.5f) + h * 0.15f); // Altura próxima ao barril
+                novo.vx = (float)(Math.random() * 200 + 250); // AUMENTADO (Velocidade para a direita)
+                novo.vy = 0;
+            } else {
+                // Vem da DIREITA (Horizontal)
+                novo.x = w + novo.tamanho;
+                novo.y = (float)(Math.random() * (h * 0.5f) + h * 0.15f);
+                novo.vx = -(float)(Math.random() * 200 + 250); // AUMENTADO (Velocidade para a esquerda)
+                novo.vy = 0;
+            }
+            obstaculos.add(novo);
         }
 
-        for (int i = pedras.size() - 1; i >= 0; i--) {
-            float[] p = pedras.get(i);
-            p[1] -= p[2] * delta; // cai para baixo
-            if (p[1] < -pedraH) { pedras.remove(i); continue; }
-            // Colisão
-            if (barrilX < p[0] + pedraW && barrilX + barrilW > p[0] &&
-                barrilY < p[1] + pedraH && barrilY + barrilH > p[1]) {
-                pedras.remove(i);
+        // Atualização dos Objetos e Colisões
+        for (int i = obstaculos.size() - 1; i >= 0; i--) {
+            Objeto o = obstaculos.get(i);
+            
+            // Move o objeto baseado em suas velocidades individuais
+            o.x += o.vx * delta;
+            o.y += o.vy * delta;
+
+            // Remove se sair da tela (por baixo ou pelas laterais)
+            if (o.y < -o.tamanho || o.x < -o.tamanho * 2 || o.x > w + o.tamanho * 2) {
+                obstaculos.remove(i);
+                continue;
+            }
+
+            // Teste de Colisão (AABB)
+            if (barrilX < o.x + o.tamanho && barrilX + barrilW > o.x &&
+                barrilY < o.y + o.tamanho && barrilY + barrilH > o.y) {
+                obstaculos.remove(i);
                 vidas--;
                 if (vidas <= 0) gameOver = true;
             }
@@ -86,10 +131,12 @@ public class BonusCanada implements BonusAtividade {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+        // Fundo
         batch.begin();
         ImagemUtil.desenharFundo(batch, fundo, w, h);
         batch.end();
 
+        // Tela de Game Over
         if (gameOver) {
             shape.begin(ShapeRenderer.ShapeType.Filled);
             shape.setColor(0.5f, 0, 0, 0.85f);
@@ -104,30 +151,33 @@ public class BonusCanada implements BonusAtividade {
             return;
         }
 
-        // Pedras
+        // Desenhar Formas (Obstáculos)
         shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.4f, 0.3f, 0.2f, 1);
-        for (float[] p : pedras) shape.rect(p[0], p[1], pedraW, pedraH);
+        shape.setColor(0.4f, 0.3f, 0.2f, 1); // Cor marrom/cinza para as formas
+        for (Objeto o : obstaculos) {
+            shape.rect(o.x, o.y, o.tamanho, o.tamanho);
+        }
         shape.end();
 
-        // Barril
+        // Desenhar Barril
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.5f, 0.3f, 0.1f, 1);
         shape.rect(barrilX, barrilY, barrilW, barrilH);
-        // Aros do barril
+        // Detalhes/Aros do barril
         shape.setColor(0.3f, 0.2f, 0.05f, 1);
         shape.rect(barrilX, barrilY + barrilH * 0.3f, barrilW, 5);
         shape.rect(barrilX, barrilY + barrilH * 0.65f, barrilW, 5);
         shape.end();
 
-        // HUD
+        // HUD (Placar)
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0, 0, 0, 0.7f);
         shape.rect(0, h - 50, w, 50);
         shape.end();
+        
         batch.begin();
         font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Vidas: " + vidas + " | Tempo: " + (int)(tempoTotal - tempoJogo) + "s", 20, h - 15);
+        font.draw(batch, "Vidas: " + vidas + " | Tempo: " + (int)Math.max(0, tempoTotal - tempoJogo) + "s", 20, h - 15);
         batch.end();
     }
 
