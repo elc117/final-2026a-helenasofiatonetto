@@ -164,7 +164,7 @@ public class TelaBonusCanada implements Screen {
         font.draw(batch, "Toque para voltar", w/2 - 150, h/2 - 20);
         batch.end();
         if (Gdx.input.justTouched()) {
-            jogo.setScreen(new TelaVilagemCanada(jogo, jogador, true, true));
+            jogo.setScreen(new TelaVilagem(jogo, jogador, true, true));
         }
     }
 

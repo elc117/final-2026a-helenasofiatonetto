@@ -30,44 +30,44 @@ public class TelaQuiz implements Screen {
         if (!redirecionado) {
             redirecionado = true;
             if (jogador.getPais().equals("Japao") || jogador.getPais().equals("Mexico")) {
-                jogo.setScreen(new TelaEscapeJapao(jogo, jogador));
+                jogo.setScreen(new TelaEscape(jogo, jogador));
                 return;
             }
 
             if (jogador.getPais().equals("Mexico")) {
-                jogo.setScreen(new TelaVilagemMexico(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
 
             if (jogador.getPais().equals("Canada")) {
-                jogo.setScreen(new TelaVilagemCanada(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
 
             if (jogador.getPais().equals("Nova Zelandia")) {
-                jogo.setScreen(new TelaVilagemNZ(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
 
             if (jogador.getPais().equals("Groelandia")) {
-                jogo.setScreen(new TelaVilagemGroelandia(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
 
             if (jogador.getPais().equals("Austria")) {
-                jogo.setScreen(new TelaVilagemAustria(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
             if (jogador.getPais().equals("Egito")) {
-                jogo.setScreen(new TelaVilagemEgito(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
             if (jogador.getPais().equals("Brasil")) {
-                jogo.setScreen(new TelaVilagemBrasil(jogo, jogador, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
             if (jogador.getPais().equals("Bussola")) {
-                jogo.setScreen(new TelaVilagemBussola(jogo, jogador, false, false, false));
+                jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                 return;
             }
         }

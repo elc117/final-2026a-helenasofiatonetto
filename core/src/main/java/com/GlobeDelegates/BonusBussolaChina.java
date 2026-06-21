@@ -1,6 +1,6 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import java.util.ArrayList;
 
-public class TelaBussolaChina implements Screen {
+public class BonusBussolaChina implements BonusAtividade {
 
     private GlobeDelegates jogo;
     private Jogador jogador;
@@ -32,7 +32,7 @@ public class TelaBussolaChina implements Screen {
     private boolean errou = false;
     private float tempoMensagem = 0;
 
-    public TelaBussolaChina(GlobeDelegates jogo, Jogador jogador) {
+    public BonusBussolaChina(GlobeDelegates jogo, Jogador jogador) {
         this.jogo = jogo;
         this.jogador = jogador;
         batch = new SpriteBatch();
@@ -64,7 +64,12 @@ public class TelaBussolaChina implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void update(float delta) {
+    }
+
+    @Override
+    public void render() {
+        float delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0.1f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -72,7 +77,7 @@ public class TelaBussolaChina implements Screen {
         float h = Gdx.graphics.getHeight();
 
         batch.begin();
-        batch.draw(fundo, 0, 0, w, h);
+        ImagemUtil.desenharFundo(batch, fundo, w, h);
         batch.end();
 
         shape.begin(ShapeRenderer.ShapeType.Filled);
@@ -194,15 +199,12 @@ public class TelaBussolaChina implements Screen {
         font.draw(batch, "Toque para continuar", w/2 - 170, h/2 - 20);
         batch.end();
         if (Gdx.input.justTouched()) {
-            jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
+            concluido = true;
         }
     }
 
-    @Override public void show() {}
-    @Override public void resize(int width, int height) {}
-    @Override public void pause() {}
-    @Override public void resume() {}
-    @Override public void hide() {}
+    public boolean isConcluido() { return concluido; }
+
     @Override
     public void dispose() {
         batch.dispose();

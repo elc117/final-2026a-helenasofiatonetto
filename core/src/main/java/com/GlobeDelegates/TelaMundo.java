@@ -101,7 +101,7 @@ public class TelaMundo implements Screen {
         float h = Gdx.graphics.getHeight();
 
         batch.begin();
-        batch.draw(fundo, 0, 0, w, h);
+        ImagemUtil.desenharFundo(batch, fundo, w, h);
         batch.draw(casinha, casinhaX, casinhaY, casinhaSize, casinhaSize);
         batch.end();
 
@@ -133,31 +133,31 @@ public class TelaMundo implements Screen {
             if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
                 switch (jogador.getPais()) {
                     case "Japao":
-                        jogo.setScreen(new TelaVilagemJapao(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Canada":
-                        jogo.setScreen(new TelaVilagemCanada(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Mexico":
-                        jogo.setScreen(new TelaVilagemMexico(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Nova Zelandia":
-                        jogo.setScreen(new TelaVilagemNZ(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Austria":
-                        jogo.setScreen(new TelaVilagemAustria(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Groelandia":
-                        jogo.setScreen(new TelaVilagemGroelandia(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Egito":
-                        jogo.setScreen(new TelaVilagemEgito(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Brasil":
-                        jogo.setScreen(new TelaVilagemBrasil(jogo, jogador, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                     case "Bussola":
-                        jogo.setScreen(new TelaVilagemBussola(jogo, jogador, false, false, false));
+                        jogo.setScreen(new TelaVilagem(jogo, jogador, false, false));
                         break;
                 }
             }

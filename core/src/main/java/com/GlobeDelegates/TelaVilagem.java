@@ -1,15 +1,15 @@
 package com.GlobeDelegates;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class TelaVilagemCanada implements Screen {
+public class TelaVilagem implements Screen {
 
     private GlobeDelegates jogo;
     private Jogador jogador;
@@ -20,29 +20,46 @@ public class TelaVilagemCanada implements Screen {
 
     private float persX, persY;
     private float persSize = 40;
-    private float persVX = 200;
+    private float persVX = 250;
 
-    private float[] casinhaX = {150, 450, 750};
-    private float[] casinhaY;
-    private float casinhaSize = 80;
+    private float[] entradaX = {150, 450, 750};
+    private float[] entradaY;
+    private float entradaSize = 80;
     private String[] labels = {"Escape Room", "Delegacao", "Bonus"};
     private boolean[] desbloqueado;
 
-    public TelaVilagemCanada(GlobeDelegates jogo, Jogador jogador, boolean escapeCompleto, boolean delegacaoCompleta) {
+    public TelaVilagem(GlobeDelegates jogo, Jogador jogador, boolean escapeCompleto, boolean delegacaoCompleta) {
         this.jogo = jogo;
         this.jogador = jogador;
         batch = new SpriteBatch();
         shape = new ShapeRenderer();
         font = new BitmapFont();
         font.getData().setScale(1.5f);
-        fundo = new Texture("canada/telaescolha.png");
+
+        String pasta = getPasta(jogador.getPais());
+        fundo = new Texture(pasta + "/telaEscolha.jpg");
 
         float h = Gdx.graphics.getHeight();
-        casinhaY = new float[]{h * 0.4f, h * 0.4f, h * 0.4f};
+        entradaY = new float[]{h * 0.4f, h * 0.4f, h * 0.4f};
         desbloqueado = new boolean[]{true, escapeCompleto, escapeCompleto && delegacaoCompleta};
 
         persX = 50;
         persY = h * 0.3f;
+    }
+
+    private String getPasta(String pais) {
+        switch (pais) {
+            case "Japao": return "japao";
+            case "Mexico": return "mexico";
+            case "Canada": return "canada";
+            case "Nova Zelandia": return "nz";
+            case "Groelandia": return "groelandia";
+            case "Austria": return "austria";
+            case "Egito": return "egito";
+            case "Brasil": return "brasil";
+            case "Bussola": return "bussola";
+            default: return "japao";
+        }
     }
 
     @Override
@@ -54,28 +71,35 @@ public class TelaVilagemCanada implements Screen {
         float h = Gdx.graphics.getHeight();
 
         batch.begin();
-        batch.draw(fundo, 0, 0, w, h);
+        ImagemUtil.desenharFundo(batch, fundo, w, h);
         batch.end();
 
-        if (Gdx.input.isKeyPressed(Keys.LEFT))  persX -= persVX * delta;
+        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
+            jogo.setScreen(new TelaEscolha(jogo));
+            return;
+        }
+
+        // WASD mover
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) persX -= persVX * delta;
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
         persX = Math.max(0, Math.min(persX, w - persSize));
 
         for (int i = 0; i < 3; i++) {
             shape.begin(ShapeRenderer.ShapeType.Filled);
             shape.setColor(desbloqueado[i] ? 0.2f : 0.5f, desbloqueado[i] ? 0.7f : 0.5f, 0.2f, 0.7f);
-            shape.rect(casinhaX[i] - 10, casinhaY[i] - 10, casinhaSize + 20, casinhaSize + 20);
+            shape.rect(entradaX[i] - 10, entradaY[i] - 10, entradaSize + 20, entradaSize + 20);
             shape.end();
             batch.begin();
             font.setColor(1, 1, 1, 1);
-            font.draw(batch, labels[i], casinhaX[i], casinhaY[i] + casinhaSize + 25);
+            font.draw(batch, labels[i], entradaX[i] - 10, entradaY[i] + entradaSize + 25);
             if (!desbloqueado[i]) {
                 font.setColor(1, 0.5f, 0.5f, 1);
-                font.draw(batch, "(bloqueado)", casinhaX[i], casinhaY[i] + casinhaSize + 5);
+                font.draw(batch, "(bloqueado)", entradaX[i], entradaY[i] + entradaSize + 5);
             }
             batch.end();
         }
 
+        // Personagem
         shape.begin(ShapeRenderer.ShapeType.Filled);
         shape.setColor(0.2f, 0.4f, 0.9f, 1);
         shape.rect(persX, persY, persSize, persSize * 1.5f);
@@ -84,21 +108,21 @@ public class TelaVilagemCanada implements Screen {
         shape.end();
 
         for (int i = 0; i < 3; i++) {
-            float dist = Math.abs(persX - casinhaX[i]);
+            float dist = Math.abs(persX - entradaX[i]);
             if (dist < 80 && desbloqueado[i]) {
                 shape.begin(ShapeRenderer.ShapeType.Filled);
                 shape.setColor(0.18f, 0.75f, 0.75f, 1);
-                shape.rect(persX - 10, persY + persSize * 2 + 10, 160, 40);
+                shape.rect(persX - 10, persY + persSize * 2 + 10, 180, 40);
                 shape.end();
                 batch.begin();
                 font.setColor(0, 0, 0, 1);
-                font.draw(batch, "ESPACO: entrar", persX, persY + persSize * 2 + 38);
+                font.draw(batch, "SPACE: entrar", persX, persY + persSize * 2 + 38);
                 batch.end();
 
                 if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-                    if (i == 0) jogo.setScreen(new TelaEscapeCanada(jogo, jogador));
-                    if (i == 1) jogo.setScreen(new TelaDelegacaoCanada(jogo, jogador));
-                    if (i == 2) jogo.setScreen(new TelaBonusCanada(jogo, jogador));
+                    if (i == 0) jogo.setScreen(new TelaEscape(jogo, jogador));
+                    else if (i == 1) jogo.setScreen(new TelaDelegacao(jogo, jogador));
+                    else jogo.setScreen(new TelaBonus(jogo, jogador));
                 }
             }
         }
@@ -109,7 +133,7 @@ public class TelaVilagemCanada implements Screen {
         shape.end();
         batch.begin();
         font.setColor(1, 1, 1, 1);
-        font.draw(batch, "Use as setas para andar. ESPACO para entrar.", 20, h - 18);
+        font.draw(batch, "Setas=mover | SPACE=entrar | ESC=sair", 20, h - 18);
         batch.end();
     }
 
@@ -120,9 +144,6 @@ public class TelaVilagemCanada implements Screen {
     @Override public void hide() {}
     @Override
     public void dispose() {
-        batch.dispose();
-        shape.dispose();
-        font.dispose();
-        fundo.dispose();
+        batch.dispose(); shape.dispose(); font.dispose(); fundo.dispose();
     }
 }

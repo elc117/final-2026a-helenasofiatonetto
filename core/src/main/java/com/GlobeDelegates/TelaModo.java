@@ -46,7 +46,7 @@ public class TelaModo implements Screen {
         float h = Gdx.graphics.getHeight();
 
         batch.begin();
-        batch.draw(fundo, 0, 0, w, h);
+        ImagemUtil.desenharFundo(batch, fundo, w, h);
         batch.end();
 
         // Overlay escuro

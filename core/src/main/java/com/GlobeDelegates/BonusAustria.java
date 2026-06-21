@@ -1,6 +1,6 @@
 package com.GlobeDelegates;
 
-import com.badlogic.gdx.Screen;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class TelaBonusAustria implements Screen {
+public class BonusAustria implements BonusAtividade {
 
     private GlobeDelegates jogo;
     private Jogador jogador;
@@ -48,7 +48,7 @@ public class TelaBonusAustria implements Screen {
     private float tempoErro = 0;
     private int obraIdx;
 
-    public TelaBonusAustria(GlobeDelegates jogo, Jogador jogador) {
+    public BonusAustria(GlobeDelegates jogo, Jogador jogador) {
         this.jogo = jogo;
         this.jogador = jogador;
         batch = new SpriteBatch();
@@ -103,7 +103,12 @@ public class TelaBonusAustria implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+    public void update(float delta) {
+    }
+
+    @Override
+    public void render() {
+        float delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0.05f, 0.03f, 0.08f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -259,15 +264,12 @@ public class TelaBonusAustria implements Screen {
         batch.end();
 
         if (Gdx.input.justTouched()) {
-            jogo.setScreen(new TelaVilagem(jogo, jogador, true, true));
+            concluido = true;
         }
     }
 
-    @Override public void show() {}
-    @Override public void resize(int width, int height) {}
-    @Override public void pause() {}
-    @Override public void resume() {}
-    @Override public void hide() {}
+    public boolean isConcluido() { return concluido; }
+
     @Override
     public void dispose() {
         batch.dispose();
