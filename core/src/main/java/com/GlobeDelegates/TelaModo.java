@@ -89,11 +89,6 @@ public class TelaModo implements Screen {
         font.draw(batch, "MULTIPLAYER", btnMultiX + btnW/2 - 140, btnMultiY + btnH - 20);
         batch.end();
 
-        // Descricao
-        batch.begin();
-        font.setColor(0.8f, 0.8f, 0.8f, 0.8f);
-        font.draw(batch, "2 jogadores, 1 teclado", w/2 - 200, btnMultiY - 30);
-        batch.end();
 
         // Input
         if (Gdx.input.justTouched()) {
