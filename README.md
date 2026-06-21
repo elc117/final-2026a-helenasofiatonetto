@@ -79,15 +79,15 @@ REFINAMENTO:
 * Focamos em corrigir bugs e aprimorar o visual. Correções desde a entrega parcial:
 
 BUGS GERAIS
-* backspace não funciona na senha, tem que dar enter e escrever de novo. se esquece a senha/nao sabe, fica preso na tela
+- ✅ backspace não funciona na senha, tem que dar enter e escrever de novo. se esquece a senha/nao sabe, fica preso na tela
 * após completar um país, não encerrra o jogo, fica no cenário do país
-* mesmo errando todas as respostas, a delegação é concluida.
+- ✅ mesmo errando todas as respostas, a delegação é concluida.
 
 PAÍSES
 * Egito: ok, tem bastante objetos a coletar
 * Japao: haiku do rio que corre, não some o 'que' da lista. não é problema pq se clicar nele ele some junto com o outro 'que'
 * Austria: ok
-* Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
+- ✅ Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
 * Canada: ok
 
 SUGESTOES DE MUDANÇAS GERAIS
@@ -112,7 +112,7 @@ Nos países:
 
 REFINAMENTO:
 - ✅ Alterado arquivos: aplicação de polimorfismo e herança para redução da quantidade de arquivos
-* largura das imagens
+- ✅ largura das imagens
 * placeholders
 * telas dos quizzes
 * imagens de fundo
@@ -158,6 +158,9 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
 
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
+Todas as perguntas da parte de delegação foram retiradas de sites de quizzes como BuzzFeed e Quizur.
+Todas as sprites foram retiradas do Pinterest.
+
 
 ## Plano de trabalho
 ### Semana 1 — Ambientação com libGDX
@@ -195,9 +198,6 @@ Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em
 
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
 
-
-
-
 ## Referências
 
 LINKS LIBGDX:
@@ -209,5 +209,4 @@ LINKS LIBGDX:
 <br>Tutorial para Iniciante - https://colourtann.github.io/HelloLibgdx/
 <br>Wiki da LibGDX - https://libgdx.com/wiki/
 <br>Ferramentas para desenvolvimento - https://libgdx.com/dev/tools/
-
 <br>Itchi.io - https://itch.io/
