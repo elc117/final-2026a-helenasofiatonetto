@@ -97,11 +97,12 @@ public class TelaModo implements Screen {
 
             if (tx >= btnSoloX && tx <= btnSoloX + btnW &&
                 ty >= btnSoloY && ty <= btnSoloY + btnH) {
-                jogo.setScreen(new TelaEscolha(jogo));
+                jogo.setScreen(new TelaInstrucoesSolo(jogo));
             }
+
             if (tx >= btnMultiX && tx <= btnMultiX + btnW &&
                 ty >= btnMultiY && ty <= btnMultiY + btnH) {
-                jogo.setScreen(new TelaCombate(jogo));
+                jogo.setScreen(new TelaInstrucoesMulti(jogo));
             }
         }
     }
