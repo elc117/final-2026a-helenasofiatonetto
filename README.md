@@ -24,7 +24,28 @@ Segunda Parte - Combate de Delegações:
 
 
 ## Processo de desenvolvimento:
-comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante (⚠️ não usar IA para gerar ou revisar esses comentários!)
+comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante 
+## Decisões durante o desenvolvimento
+No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. Na proposta pensamos que o Bônus seria uma dica, mas como estavamos tendo muitas ideias de atividades, resolvemos alterar para que o bônus fosse uma atividade diferente para cada país: 
+
+<b>Japão</b> - montar haiku clicando nas palavras
+<b>México</b> - jogo de decorar a ordem das cores e repetir
+<b>Canadá</b> - desviar o barco dos objetos que estão vindo
+<b>Nova Zelândia</b> - Navegação por coordenada 
+<b>Groelândia</b> - puzzle deslizante para formar imagem ao colocar números na ordem
+<b>Áustria</b> - monstar obra de arte ao arrastar partes da pintura que estão faltando
+<b>Egito</b> - pirâmide que deve ser montada com os blocos que estão caindo
+<b>Brasil</b> - sacola para pegar os itens na feira
+<b>Bússola</b> - atividades do Peru, China e Grécia
+
+Nessa parte surgiram muitas ideias e foi usado o Claude Sonnet 4.6 com esforço baixo versão Pro para ajudar nas movimentações de cada jogo. Então descrevi o que cada parte do jogo teria e o que eu não sabia para que ele me desse o código que eu entendesse e que funcionasse. 
+
+No multiplayer pensamos em ter perguntas sobre as 3 linguagens que estudamos onde 2 pessoas se enfrentam.
+
+Na prévia tinha um arquivo para cada país para cada jogo, então tinha o TelaBonusJapao, o TelaEscapeJapao e o TelaDelegacaoJapao, o que ficou muito ruimm por isso alteramos, usando o conceito de polimorfismo para que tivesse um arquivo TelaEscape e um TelaDelegacao com todos os países, mas não consegui fazer isso para o bônus, pois cada país tem uma atividade diferente. Como não sabíamos como resolver, recorremos ao Claude e solicitamos como solucionar, assim fomos seguindo as intruções e pedindo ajuda com o código para ele. 
+
+Tambem decidimos não implementar a parte de ranking, pois não sabiamos e não teríamos tempo de implementar essa funcionalidade e como não era fundamental para o jogo, decidimos não fazer, já que não altera nada no jogo.
+
 
 ### Entrega Parcial (14/06): O que foi feito até agora
 
@@ -74,17 +95,19 @@ REFINAMENTO:
 * jogador
 * localização dos objetos/entradas
 
+Esses pontos foram levantados quando as duas testaram e anotaram o que deveria ser resolvido futuramente até a entrega final.
+
 ### Entrega Final (21/06):
 
 * Focamos em corrigir bugs e aprimorar o visual. Correções desde a entrega parcial:
 
 BUGS GERAIS
 - ✅ backspace não funciona na senha, tem que dar enter e escrever de novo. se esquece a senha/nao sabe, fica preso na tela
-* após completar um país, não encerrra o jogo, fica no cenário do país
+- ✅ após completar um país, não encerrra o jogo, fica no cenário do país
 - ✅ mesmo errando todas as respostas, a delegação é concluida.
 
 PAÍSES
-* Egito: ok, tem bastante objetos a coletar
+* ✅ Egito: ok, tem bastante objetos a coletar
 * Japao: haiku do rio que corre, não some o 'que' da lista. não é problema pq se clicar nele ele some junto com o outro 'que'
 * Austria: ok
 - ✅ Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
@@ -119,26 +142,6 @@ REFINAMENTO:
 * jogador
 * localização dos objetos/entradas
 
-## Decisões durante o desenvolvimento
-  No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. 
-
-Na parte Bônus cada país tem uma atividade específica:
-<b>Japão</b> - montar haiku clicando nas palavras
-<b>México</b> - jogo de decorar a ordem das cores e repetir
-<b>Canadá</b> - desviar o barco dos objetos que estão vindo
-<b>Nova Zelândia</b> - Navegação por coordenada 
-<b>Groelândia</b> - puzzle deslizante para formar imagem ao colocar números na ordem
-<b>Áustria</b> - monstar obra de arte ao arrastar partes da pintura que estão faltando
-<b>Egito</b> - pirâmide que deve ser montada com os blocos que estão caindo
-<b>Brasil</b> - sacola para pegar os itens na feira
-<b>Bússola</b> - 
-
-Nessa parte surgiram muitas ideias e foi usado o Claude Sonnet 4.6 com esforço baixo versão Pro para ajudar nas movimentações de cada jogo. Então descrevi o que cada parte do jogo teria e o que eu não sabia para que ele me desse o código que eu entendesse e que funcionasse. 
-
-No multiplayer pensamos em ter perguntas sobre as 3 linguagens que estudamos onde 2 pessoas se enfrentam.
-
-Na prévia tinha um arquivo para cada país para cada jogo, então tinha o TelaBonusJapao, o TelaEscapeJapao e o TelaDelegacaoJapao, o que ficou muito ruimm por isso alteramos, usando o conceito de polimorfismo para que tivesse um arquivo TelaEscape e um TelaDelegacao com todos os países, mas não consegui fazer isso para o bônus, pois 
-
 ## Diagrama de classes:
 Diagrama final de classes do jogo: <br><img width="1839" height="1591" alt="classes final" src="https://github.com/user-attachments/assets/fcc5d96a-fab4-4b9e-9283-02c21adfb64d" />
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos. Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
@@ -151,12 +154,17 @@ Diagrama com métodos, classes e atributos:<br>
 Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama.
 
 ## Orientações para execução: instalação de dependências, etc.
+Você pode jogar o jogo pelo itch.io : [GlobeDelegates](https://hlk0000.itch.io/globedelegates)
+Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)
+Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
 
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
 Todas as perguntas da parte de delegação foram retiradas de sites de quizzes como BuzzFeed e Quizur.
 Todas as sprites foram retiradas do Pinterest.
+Prompt para resolver problema de muitos arquivos Bonus: 
+"No meu jogo libGDX, cada país tem um bônus diferente. Como posso usar conceitos de POO para que uma classe TelaBonus funcione para qualquer país sem saber qual é? Me diz o conceito e como aplicar." A partir disso, fomos construindo o código. 
 
 
 ## Plano de trabalho
@@ -177,13 +185,13 @@ Todas as sprites foram retiradas do Pinterest.
 ### Semana 3 — Fase 1: Escape Room
 - ✅ Implementar a estrutura básica do Escape Room com placeholders
 - ✅ Implementar a lógica de tarefas e quiz
-- [ ] Implementar o sistema de bônus
-- [ ] Registrar dúvidas e decisões de design no README
+- ♦️ Implementar o sistema de bônus
+- ✅ Registrar dúvidas e decisões de design no README
 
 ### Semana 4 — Fase 2: Combate de delegações
 - ✅ Implementar a lógica de delegações e pontuação
 - ✅/falta Implementar as perguntas de código (Java, Haskell, Prolog)
-- [ ] Implementar o ranking final
+- ✖️ Implementar o ranking final
 - [ ] Testar o build web novamente
 
 ### Semana 5 — Polimento e entrega
@@ -196,9 +204,6 @@ Todas as sprites foram retiradas do Pinterest.
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
 
 ## Referências
-
-LINKS LIBGDX:
-
 <br>Como começar com LibGDX - https://libgdx.com/dev/
 <br>Istruções de Setup - https://libgdx.com/wiki/start/setup
 <br>Exemplo "A Simple Game" - https://libgdx.com/wiki/start/a-simple-game
@@ -207,3 +212,5 @@ LINKS LIBGDX:
 <br>Wiki da LibGDX - https://libgdx.com/wiki/
 <br>Ferramentas para desenvolvimento - https://libgdx.com/dev/tools/
 <br>Itchi.io - https://itch.io/
+<br>[https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos?utm_term=&utm_campaign=&utm_source=google&utm_medium=cpc&campaign_id=23805973578__&utm_id=23805973578__&hsa_acc=7964138385&hsa_cam=&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=google&hsa_ver=3&gad_source=1&gad_campaignid=23815806613&gbraid=0AAAAADpqZICzPPsBWNgiNa6jJxcJGt5Bn&gclid=CjwKCAjwl97RBhBWEiwAa9rbXR8-b8jDVQPVTY9bG9T7NRf6UmlqAxzA59hh_Po_--0c4QXy7aO8cRoCbfMQAvD_BwE](POO)
+<br>[https://github.com/AndreaInfUFSM/elc117-2026a](Perguntas para o multiplayer - github da professora)
