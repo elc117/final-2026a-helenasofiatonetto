@@ -241,6 +241,8 @@ public class TelaCombate implements Screen {
 
         // Opcoes
         float btnW = 320, btnH = 55;
+        String[] letras = {"A", "B", "C", "D"};
+
         for (int i = 0; i < 4; i++) {
             float bx = (i < 2) ? w/2 - btnW - 10 : w/2 + 10;
             float by = (i % 2 == 0) ? h * 0.35f : h * 0.22f;
@@ -259,7 +261,7 @@ public class TelaCombate implements Screen {
 
             batch.begin();
             font.setColor(1, 1, 1, 1);
-            font.draw(batch, (i+1) + ". " + opcoesMisturadas[i], bx + 15, by + btnH - 12);
+            font.draw(batch, letras[i] + ". " + opcoesMisturadas[i], bx + 15, by + btnH - 12);
             batch.end();
         }
 
