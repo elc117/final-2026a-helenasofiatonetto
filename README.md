@@ -119,6 +119,26 @@ REFINAMENTO:
 * jogador
 * localização dos objetos/entradas
 
+## Decisões durante o desenvolvimento
+  No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. 
+
+Na parte Bônus cada país tem uma atividade específica:
+<b>Japão</b> - montar haiku clicando nas palavras
+<b>México</b> - jogo de decorar a ordem das cores e repetir
+<b>Canadá</b> - desviar o barco dos objetos que estão vindo
+<b>Nova Zelândia</b> - Navegação por coordenada 
+<b>Groelândia</b> - puzzle deslizante para formar imagem ao colocar números na ordem
+<b>Áustria</b> - monstar obra de arte ao arrastar partes da pintura que estão faltando
+<b>Egito</b> - pirâmide que deve ser montada com os blocos que estão caindo
+<b>Brasil</b> - sacola para pegar os itens na feira
+<b>Bússola</b> - 
+
+Nessa parte surgiram muitas ideias e foi usado o Claude Sonnet 4.6 com esforço baixo versão Pro para ajudar nas movimentações de cada jogo. Então descrevi o que cada parte do jogo teria e o que eu não sabia para que ele me desse o código que eu entendesse e que funcionasse. 
+
+No multiplayer pensamos em ter perguntas sobre as 3 linguagens que estudamos onde 2 pessoas se enfrentam.
+
+Na prévia tinha um arquivo para cada país para cada jogo, então tinha o TelaBonusJapao, o TelaEscapeJapao e o TelaDelegacaoJapao, o que ficou muito ruimm por isso alteramos, usando o conceito de polimorfismo para que tivesse um arquivo TelaEscape e um TelaDelegacao com todos os países, mas não consegui fazer isso para o bônus, pois 
+
 ## Diagrama de classes:
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos
 <img width="300" alt="Somente classes do sistema" src="https://github.com/user-attachments/assets/e4f6edce-3f01-4824-bfd4-7f351605891a" />
