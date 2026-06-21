@@ -107,7 +107,7 @@ No multiplayer:
 "ganha quando adversário perder as 3 vidas"<br>
 
 Nos países:
-* Canada: no bonus, colocar os obstaculos vindo da vertical e o bonequinho ser um barril
+- ✅ Canada: no bonus, colocar os obstaculos vindo da vertical e o bonequinho ser um barril
 * Egito: colocar simbolos no lugar das letras, aumentar velocidade
 
 REFINAMENTO:
