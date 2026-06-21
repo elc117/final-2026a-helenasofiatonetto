@@ -140,11 +140,8 @@ No multiplayer pensamos em ter perguntas sobre as 3 linguagens que estudamos ond
 Na prévia tinha um arquivo para cada país para cada jogo, então tinha o TelaBonusJapao, o TelaEscapeJapao e o TelaDelegacaoJapao, o que ficou muito ruimm por isso alteramos, usando o conceito de polimorfismo para que tivesse um arquivo TelaEscape e um TelaDelegacao com todos os países, mas não consegui fazer isso para o bônus, pois 
 
 ## Diagrama de classes:
-Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos
-<img width="300" alt="Somente classes do sistema" src="https://github.com/user-attachments/assets/e4f6edce-3f01-4824-bfd4-7f351605891a" />
-
-Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
-<img width="300" alt="Com os atributos e métodos" src="https://github.com/user-attachments/assets/06437183-ff0f-4a19-9b8d-0ceededc8b4e" />
+Diagrama final de classes do jogo: <br><img width="1839" height="1591" alt="classes final" src="https://github.com/user-attachments/assets/fcc5d96a-fab4-4b9e-9283-02c21adfb64d" />
+Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos. Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
 # Diagramas de classes
 Diagrama com somente as classes: <br>
 <img width="600" height="694" alt="5A9D7ECF-2B63-410E-BA5A-3D39D0A78500" src="https://github.com/user-attachments/assets/cafc4967-ca60-46f6-9fd9-13409b96b09c" /><br>
