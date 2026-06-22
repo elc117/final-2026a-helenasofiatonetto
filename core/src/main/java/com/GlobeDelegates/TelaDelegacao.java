@@ -215,7 +215,14 @@ public class TelaDelegacao implements Screen {
         Collections.shuffle(indices);
         int qtd = Math.min(5, todasPerguntas.length);
         perguntasSelecionadas = new String[qtd][];
-        for (int i = 0; i < qtd; i++) perguntasSelecionadas[i] = todasPerguntas[indices.get(i)].clone();
+        for (int i = 0; i < qtd; i++) {
+            String[] origem = todasPerguntas[indices.get(i)];
+            String[] copia = new String[origem.length];
+            for (int j = 0; j < origem.length; j++) {
+                copia[j] = origem[j];
+            }
+            perguntasSelecionadas[i] = copia;
+        }
         perguntaAtual = 0;
         acertos = 0;
         opcoesAtuais = null;
