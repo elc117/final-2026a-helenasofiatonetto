@@ -24,7 +24,16 @@ Segunda Parte - Combate de Delegações:
 
 
 ## Processo de desenvolvimento:
-## Decisões durante o desenvolvimento
+Apesar da Helena ter tido problemas com o computador, fomos enviando e conversando sobre tudo que pensamos no jogo, desde decidir e buscar imagens até implementar.
+Sofia - até dia 14:
+ficou com a parte SOLO do jogo criando os jogos bônus, perguntas e escape
+Helena - até dia 14:
+ficou com o multiplayer e itch.io
+Sofia - até dia 21:
+ajustou partes das imagens, bônus, trocas de alguns placeholders
+Helena - até dia 21:
+implementou tela de instruções e fez ajustes no jogo como botões novos e retirada de placeholders também como o do personagem
+### Decisões durante o desenvolvimento
 No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. Na proposta pensamos que o Bônus seria uma dica, mas como estavamos tendo muitas ideias de atividades, resolvemos alterar para que o bônus fosse uma atividade diferente para cada país: 
 
 <b>Japão</b> - montar haiku clicando nas palavras
