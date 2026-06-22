@@ -166,7 +166,7 @@ Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
 Solo:
-<img src="gameplay/solo.gif">
+(video)
 
 Multiplayer:
 <img src="gameplay/multiplayer.gif">
