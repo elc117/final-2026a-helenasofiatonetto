@@ -25,14 +25,20 @@ Segunda Parte - Combate de Delegações:
 
 ## Processo de desenvolvimento:
 Apesar da Helena ter tido problemas com o computador, fomos enviando e conversando sobre tudo que pensamos no jogo, desde decidir e buscar imagens até implementar.
-Sofia - até dia 14:
+
+Sofia - até dia 14:<br>
 ficou com a parte SOLO do jogo criando os jogos bônus, perguntas e escape
-Helena - até dia 14:
+
+Helena - até dia 14:<br>
 ficou com o multiplayer e itch.io
-Sofia - até dia 21:
+
+Sofia - até dia 21:<br>
 ajustou partes das imagens, bônus, trocas de alguns placeholders
-Helena - até dia 21:
+
+Helena - até dia 21:<br>
 implementou tela de instruções e fez ajustes no jogo como botões novos e retirada de placeholders também como o do personagem
+
+Como cada uma estava trabalhando em coisas diferentes, algumas vezes estavámos trabalhando no jogo antigo (menos atual) e também precisamos lidar com conflito durante o commit: git pull rebase e git push. 
 ### Decisões durante o desenvolvimento
 No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. Na proposta pensamos que o Bônus seria uma dica, mas como estavamos tendo muitas ideias de atividades, resolvemos alterar para que o bônus fosse uma atividade diferente para cada país: 
 
@@ -56,9 +62,15 @@ Tambem decidimos não implementar a parte de ranking, pois não sabiamos e não 
 
 Para ficar mais fácil, organizamos os assets com uma pasta para cada país. Contamos errado, então precisavámos de 8 países, mas tinhamos 9 ícones e já tínhamos 8 cores separadas, então colocamos uma Bússola que representaria o nono país. No multiplayer foi complicado a parte de lidar com duas pessoas e um teclado sem que desse conflito. Seguindo o Claude, usamos o ImagemUtil para uma classe de estéticaa para ajustar as distorções e repetição de código nas telas.
 
-
+### Possíveis melhorias
+Bom, pensando durante nosso julgamento final sobre o trabalho, acreditamos que poderíamos ter animado o nosso personagem no "país" Bússola, ter feito mais países, ter melhorado mais ainda as imagens, ter colocado sons especiais para cada ação.
+### Conceitos de POO utilizados 
+* Herança - a classe SimulacaoJogo extende a Jogo, nessa parte trabalhamos o conceito de herança, Jogo define o básico e SimulacaoJogo implementa o nosso jogo, Jogo tem a fase e a SimulacaoJogo herda isso e adiciona seus prórpios atributos (emAndamento), as telas implemnetam o Screen do libGDX e todas as telas de Bonus de cada país implementam o BonusAtividade
+* Interface - no BonusAtividade tem o que todas as telas de Bônus independentemente do país deve seguir. Por mais que cada país tenha sua própria atividade como haiku, barril desviando de obejtos, todos ele têm update (atualizar a lógica do jogo), render (desenhar na tela), isConcluido (para mostrar se o jogo foi concluído) e dispose (liberar a memória). E o Screen do próprio libGDX. 
+Esse foi um pouco mais complicado de entender, porque nunca tinhamos utilizado. 
+* Polimorfismo - na TelaBonus, usamos o polimorfismo para chamar o bônus não sabendo para qual país será, porque o atividade.render() executa os comportamentos. Outro exemplo é a TelaBussola, pois ela tem três países e chama sem saber a ordem de cada atividade. 
+* Encapsulamento - nossos atributos são private e acessamos com getters e setters, por isso você não consegue modificar, então quando escolhe o ícone, você não consegue mudar o país que o ícone representa, mas pode mudar de país, já que quando setamos o ícone definirPais() é chamado e isso muda para qual país você estará jogando. 
 ### Entrega Parcial (14/06): O que foi feito até agora
-
 * etapas básicas: adicionado pasta oculta .devcontainer/ e formulários enviados;
 * exemplos: foi rodado os exemplos sugeridos para termos uma base de como funcionaria o projeto;
 * readme: adicionado a proposta do projeto, links usados como referẽncia, diagrama de classes, planejamento do trabalho e agora, uma breve revisão do que foi feito até a data de entrega parcial.
