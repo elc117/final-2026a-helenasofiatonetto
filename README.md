@@ -63,13 +63,16 @@ Tambem decidimos não implementar a parte de ranking, pois não sabiamos e não 
 Para ficar mais fácil, organizamos os assets com uma pasta para cada país. Contamos errado, então precisavámos de 8 países, mas tinhamos 9 ícones e já tínhamos 8 cores separadas, então colocamos uma Bússola que representaria o nono país. No multiplayer foi complicado a parte de lidar com duas pessoas e um teclado sem que desse conflito. Seguindo o Claude, usamos o ImagemUtil para uma classe de estéticaa para ajustar as distorções e repetição de código nas telas.
 
 ### Possíveis melhorias
-Bom, pensando durante nosso julgamento final sobre o trabalho, acreditamos que poderíamos ter animado o nosso personagem no "país" Bússola, ter feito mais países, ter melhorado mais ainda as imagens, ter colocado sons especiais para cada ação.
+Bom, pensando durante nosso julgamento final sobre o trabalho, acreditamos que poderíamos ter animado o nosso personagem no "país" Bússola, ter feito mais países, ter melhorado mais ainda as imagens, ter colocado sons especiais para cada ação. Querímos também deixar as entradas para as telas (escape, bonus e delegação) mais centralizadas em cada imagem e deixar as perguntas centralizadas no pergamimho, mas não conseguimos.
 ### Conceitos de POO utilizados 
 * Herança - a classe SimulacaoJogo extende a Jogo, nessa parte trabalhamos o conceito de herança, Jogo define o básico e SimulacaoJogo implementa o nosso jogo, Jogo tem a fase e a SimulacaoJogo herda isso e adiciona seus prórpios atributos (emAndamento), as telas implemnetam o Screen do libGDX e todas as telas de Bonus de cada país implementam o BonusAtividade
 * Interface - no BonusAtividade tem o que todas as telas de Bônus independentemente do país deve seguir. Por mais que cada país tenha sua própria atividade como haiku, barril desviando de obejtos, todos ele têm update (atualizar a lógica do jogo), render (desenhar na tela), isConcluido (para mostrar se o jogo foi concluído) e dispose (liberar a memória). E o Screen do próprio libGDX. 
 Esse foi um pouco mais complicado de entender, porque nunca tinhamos utilizado. 
 * Polimorfismo - na TelaBonus, usamos o polimorfismo para chamar o bônus não sabendo para qual país será, porque o atividade.render() executa os comportamentos. Outro exemplo é a TelaBussola, pois ela tem três países e chama sem saber a ordem de cada atividade. 
-* Encapsulamento - nossos atributos são private e acessamos com getters e setters, por isso você não consegue modificar, então quando escolhe o ícone, você não consegue mudar o país que o ícone representa, mas pode mudar de país, já que quando setamos o ícone definirPais() é chamado e isso muda para qual país você estará jogando. 
+* Encapsulamento - nossos atributos são private e acessamos com getters e setters, por isso você não consegue modificar, então quando escolhe o ícone, você não consegue mudar o país que o ícone representa, mas pode mudar de país, já que quando setamos o ícone definirPais() é chamado e isso muda para qual país você estará jogando.
+* Abstração - Jogo define que todo jogo tem uma fase, mas não sabe como cada um vai usar, porque isso é definido por SimulacaoJogo. A interface de BonusAtividade define o que todos os bônus tem, mas cada país tem uma atividade e implementa do seu jeito, mas todos tem isso, fizemos para que não precise colocar o mesmo código em todos os arquivos, então colocamos a atividade de cada jogo nos arquivos e o que é comum em todos, na classe BonusAtividade. A ImagemUtil é para qualquer tela, mas cada tela tem uma proporção (essa parte não conseguimos fazer certinho), mas em todos os casos cada um precisa ser implementado seguindo suas especificações.
+* Composição - SimulacaoJogo tem as listas de Delegacao e de Rodada, mas isso não siginifica que ele é um delegação, ela tem uma, mesma coisa para rodada com a lista de perguntas, cada rodada tem suas perguntas. Então contém os outros objetos dentro dele.
+
 ### Entrega Parcial (14/06): O que foi feito até agora
 * etapas básicas: adicionado pasta oculta .devcontainer/ e formulários enviados;
 * exemplos: foi rodado os exemplos sugeridos para termos uma base de como funcionaria o projeto;
@@ -160,8 +163,8 @@ REFINAMENTO:
 - ✅ localização dos objetos/entradas
 
 ## Diagrama de classes:
-Diagrama final de classes do jogo: <br><img width="1839" height="1591" alt="classes final" src="https://github.com/user-attachments/assets/fcc5d96a-fab4-4b9e-9283-02c21adfb64d" />
-O diagrama final ficou diferente do primeiro que fizemos. Porque como optamos em escolher 9 ícones em que cada um seria um país, não precisamos mais do Acessorio nem Chapeu. A classe BonusAtividade foi adicionada seguingo o  conselho para tratar a parte dos bônus igualmente. O Persongaem ficou mais simples porque não tem mais a parte do Acessorio nem do Chapeu.
+Diagrama final de classes do jogo: <img width="1839" height="1085" alt="diagramaFinal" src="https://github.com/user-attachments/assets/a2c68f11-1b03-4cf9-a3a6-95f50b9dd58b" />
+O diagrama final ficou diferente do primeiro que fizemos. Porque como optamos em escolher 9 ícones em que cada um seria um país, não precisamos mais do Acessorio nem Chapeu. A classe BonusAtividade foi adicionada seguingo o  conselho para tratar a parte dos bônus igualmente. O Persongaem ficou mais simples porque não tem mais a parte do Acessorio nem do Chapeu. No final, removemos as classes Acessorio, Chapeu, Personagem, Pais, Ranking, Tarefa, EscapeRoom e Bonus. Excluimos umas, porque com as decisões que tomamos durante o desenvolvimento, não usaríamos mais essas classes, então removemos e a EscapeRoom e Bonus foram excluidas, mas usamos só que como BonusAtividade e TelaEscape, então não foram exluidas, mas sim alteradas.<br>
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos. Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
 # Diagramas de classes
 Diagrama com somente as classes: <br>
@@ -177,8 +180,7 @@ Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)
 Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
-Solo:
-(video)
+[Solo gameplay](gameplay/solo.mp4)
 
 Multiplayer:
 <img src="gameplay/multiplayer.gif">
