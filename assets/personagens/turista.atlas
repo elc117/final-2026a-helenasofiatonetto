@@ -1,0 +1,48 @@
+turista.png
+size: 1911, 285
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+pma: false
+down
+  bounds: 0, 0, 144, 285
+  index: 1
+down
+  bounds: 144, 0, 141, 285
+  index: 2
+down
+  bounds: 285, 0, 141, 283
+  index: 3
+down
+  bounds: 426, 0, 138, 283
+  index: 4
+left
+  bounds: 564, 0, 144, 273
+  index: 1
+left
+  bounds: 708, 0, 124, 272
+  index: 2
+left
+  bounds: 832, 0, 131, 273
+  index: 3
+right
+  bounds: 963, 0, 134, 281
+  index: 1
+right
+  bounds: 1097, 0, 137, 280
+  index: 2
+right
+  bounds: 1234, 0, 133, 282
+  index: 3
+up
+  bounds: 1367, 0, 136, 277
+  index: 1
+up
+  bounds: 1503, 0, 136, 277
+  index: 2
+up
+  bounds: 1639, 0, 138, 278
+  index: 3
+up
+  bounds: 1777, 0, 134, 278
+  index: 4
