@@ -24,7 +24,6 @@ Segunda Parte - Combate de Delegações:
 
 
 ## Processo de desenvolvimento:
-comentários sobre etapas do desenvolvimento, incluindo detalhes técnicos sobre os recursos de orientação a objetos utilizados, sobre erros/dificuldades/soluções e sobre as contribuições de cada integrante 
 ## Decisões durante o desenvolvimento
 No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por isso implementamos uma senha que é a inicial dos obejtos e quando digitadas  na ordem que os objetos foram coletados, tmabém colocamos a ordem de coleta aleatória para que não fique sempre com a mesma ordem, é liberada a fase de Delegação com um quiz sobre cada paiz. Nessa parte a maior dificuldade foi deixar um limite de 5 perguntas com um minímo de 3 acertos, pois na pré entrega tínhamos as 5 perguntas, mas depois vinham mais 6 e não estavamos conseguindo deixar as 5 só em modo aleatório. Na proposta pensamos que o Bônus seria uma dica, mas como estavamos tendo muitas ideias de atividades, resolvemos alterar para que o bônus fosse uma atividade diferente para cada país: 
 
@@ -36,7 +35,7 @@ No EscapeRoom pensamos que somente coletar os itens ficaria muito fácil, por is
 <b>Áustria</b> - monstar obra de arte ao arrastar partes da pintura que estão faltando
 <b>Egito</b> - pirâmide que deve ser montada com os blocos que estão caindo
 <b>Brasil</b> - sacola para pegar os itens na feira
-<b>Bússola</b> - atividades do Peru, China e Grécia
+<b>Bússola</b> - atividades do Peru ("escavação para descobrir objetos incas"), China ("colocar sequência da lanterna correta) e Grécia (tocha olímpica)
 
 Nessa parte surgiram muitas ideias e foi usado o Claude Sonnet 4.6 com esforço baixo versão Pro para ajudar nas movimentações de cada jogo. Então descrevi o que cada parte do jogo teria e o que eu não sabia para que ele me desse o código que eu entendesse e que funcionasse. 
 
@@ -45,6 +44,8 @@ No multiplayer pensamos em ter perguntas sobre as 3 linguagens que estudamos ond
 Na prévia tinha um arquivo para cada país para cada jogo, então tinha o TelaBonusJapao, o TelaEscapeJapao e o TelaDelegacaoJapao, o que ficou muito ruimm por isso alteramos, usando o conceito de polimorfismo para que tivesse um arquivo TelaEscape e um TelaDelegacao com todos os países, mas não consegui fazer isso para o bônus, pois cada país tem uma atividade diferente. Como não sabíamos como resolver, recorremos ao Claude e solicitamos como solucionar, assim fomos seguindo as intruções e pedindo ajuda com o código para ele. 
 
 Tambem decidimos não implementar a parte de ranking, pois não sabiamos e não teríamos tempo de implementar essa funcionalidade e como não era fundamental para o jogo, decidimos não fazer, já que não altera nada no jogo.
+
+Para ficar mais fácil, organizamos os assets com uma pasta para cada país. Contamos errado, então precisavámos de 8 países, mas tinhamos 9 ícones e já tínhamos 8 cores separadas, então colocamos uma Bússola que representaria o nono país. No multiplayer foi complicado a parte de lidar com duas pessoas e um teclado sem que desse conflito. Seguindo o Claude, usamos o ImagemUtil para uma classe de estéticaa para ajustar as distorções e repetição de código nas telas.
 
 
 ### Entrega Parcial (14/06): O que foi feito até agora
@@ -144,6 +145,7 @@ REFINAMENTO:
 
 ## Diagrama de classes:
 Diagrama final de classes do jogo: <br><img width="1839" height="1591" alt="classes final" src="https://github.com/user-attachments/assets/fcc5d96a-fab4-4b9e-9283-02c21adfb64d" />
+O diagrama final ficou diferente do primeiro que fizemos. Porque como optamos em escolher 9 ícones em que cada um seria um país, não precisamos mais do Acessorio nem Chapeu. A classe BonusAtividade foi adicionada seguingo o  conselho para tratar a parte dos bônus igualmente. O Persongaem ficou mais simples porque não tem mais a parte do Acessorio nem do Chapeu.
 Começamos fazendo um diagrama somente com o nome das classes, sem pensar em atributos nem métodos. Depois, construimos o diagrama completo, com todos os atributos e métodos.<br>
 # Diagramas de classes
 Diagrama com somente as classes: <br>
@@ -165,6 +167,8 @@ Todas as perguntas da parte de delegação foram retiradas de sites de quizzes c
 Todas as sprites foram retiradas do Pinterest.
 Prompt para resolver problema de muitos arquivos Bonus: 
 "No meu jogo libGDX, cada país tem um bônus diferente. Como posso usar conceitos de POO para que uma classe TelaBonus funcione para qualquer país sem saber qual é? Me diz o conceito e como aplicar." A partir disso, fomos construindo o código. 
+"Tenho uma classe por país na atividade tipo TelaEscapeJapao, TelaEscapeMexico como  mudar usando POO para ter menos arquivos?" - perguntei para alterar os muitos artigos que tinha
+"Como fazer um puzzle deslizante 4x4 em libGDX? Como fazer drag and drop de imagens em libGDX? Como detectar colisão entre dois retângulos em libGDX? Como funciona o padrão Screen do libGDX? Como trocar de tela dentro do jogo?" - usadas para os jogos do bônus.
 
 
 ## Plano de trabalho
@@ -213,4 +217,5 @@ Prompt para resolver problema de muitos arquivos Bonus:
 <br>Ferramentas para desenvolvimento - https://libgdx.com/dev/tools/
 <br>Itchi.io - https://itch.io/
 <br>[https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos?utm_term=&utm_campaign=&utm_source=google&utm_medium=cpc&campaign_id=23805973578__&utm_id=23805973578__&hsa_acc=7964138385&hsa_cam=&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=google&hsa_ver=3&gad_source=1&gad_campaignid=23815806613&gbraid=0AAAAADpqZICzPPsBWNgiNa6jJxcJGt5Bn&gclid=CjwKCAjwl97RBhBWEiwAa9rbXR8-b8jDVQPVTY9bG9T7NRf6UmlqAxzA59hh_Po_--0c4QXy7aO8cRoCbfMQAvD_BwE](POO)
-<br>[https://github.com/AndreaInfUFSM/elc117-2026a](Perguntas para o multiplayer - github da professora)
+<br>https://github.com/AndreaInfUFSM/elc117-2026a 
+<br> https://github.com/BenJeau/JavaFX-SimonSays - jogo do méxico para começar a pensar na lógica
