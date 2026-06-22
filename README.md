@@ -179,8 +179,8 @@ Diagrama com métodos, classes e atributos:<br>
 Utilizamos o site [PlantUML](https://plantuml.com), onde colocarmos o código em java para que ele fizesse o diagrama.
 
 ## Orientações para execução: instalação de dependências, etc.
-Você pode jogar o jogo pelo itch.io : [GlobeDelegates](https://hlk0000.itch.io/globedelegates)
-Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)
+Você pode jogar o jogo pelo itch.io : [GlobeDelegates](https://hlk0000.itch.io/globedelegates)<br>
+Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)<br>
 Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
