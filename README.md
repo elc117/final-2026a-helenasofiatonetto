@@ -185,9 +185,10 @@ Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
 Solo:
+![Solo](gameplay/solo.gif)
 
 Multiplayer:
-<img src="gameplay/multiplayer.gif">
+![Multiplayer](gameplay/multiplayer.gif)
 
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
 Todas as perguntas da parte de delegação foram retiradas de sites de quizzes como BuzzFeed e Quizur.
@@ -196,7 +197,7 @@ Prompt para resolver problema de muitos arquivos Bonus:
 "No meu jogo libGDX, cada país tem um bônus diferente. Como posso usar conceitos de POO para que uma classe TelaBonus funcione para qualquer país sem saber qual é? Me diz o conceito e como aplicar." A partir disso, fomos construindo o código. 
 "Tenho uma classe por país na atividade tipo TelaEscapeJapao, TelaEscapeMexico como  mudar usando POO para ter menos arquivos?" - perguntei para alterar os muitos artigos que tinha
 "Como fazer um puzzle deslizante 4x4 em libGDX? Como fazer drag and drop de imagens em libGDX? Como detectar colisão entre dois retângulos em libGDX? Como funciona o padrão Screen do libGDX? Como trocar de tela dentro do jogo?" - usadas para os jogos do bônus.
-
+"Quero fazer o personagem do meu jogo feito com o libgdx ter animações enquanto ele se movimenta, como posso fazer isso?"
 
 ## Plano de trabalho
 ### Semana 1 — Ambientação com libGDX
