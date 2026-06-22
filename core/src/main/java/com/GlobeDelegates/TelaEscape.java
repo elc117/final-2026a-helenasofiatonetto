@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class TelaEscape implements Screen {
 
+    private PersonagemAnimado personagem;
     private GlobeDelegates jogo;
     private Jogador jogador;
     private SpriteBatch batch;
@@ -42,9 +43,6 @@ public class TelaEscape implements Screen {
     private String senhaDigitada = "";
     private boolean senhaErrada = false;
 
-    private float persX, persY;
-    private float persVX = 250;
-    private float persSize = 40;
     private float objSize = 100;
     private float btnW = 520, btnH = 50;
     private float pergW = 760, pergH = 560;
@@ -76,6 +74,7 @@ public class TelaEscape implements Screen {
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+
         int n = nomesArquivo.length;
         objX = new float[n];
         objY = new float[n];
@@ -92,8 +91,7 @@ public class TelaEscape implements Screen {
         ordemEmbaralhada = new int[n];
         for (int i = 0; i < n; i++) ordemEmbaralhada[i] = indices.get(i);
 
-        persX = 50;
-        persY = h * 0.15f;
+        personagem = new PersonagemAnimado(50, h * 0.15f);
 
         pergX = (Gdx.graphics.getWidth() - pergW) / 2;
         pergY = (Gdx.graphics.getHeight() - pergH) / 2;
@@ -198,6 +196,11 @@ public class TelaEscape implements Screen {
 
         batch.begin();
         ImagemUtil.desenharFundo(batch, fundo, w, h);
+        for (int i = objetoAtual; i < nomesArquivo.length; i++) {
+            batch.draw(objetos[ordemEmbaralhada[i]], objX[i], objY[i], objSize, objSize);
+        }
+
+        personagem.draw(batch);
         batch.end();
 
         if (tempoEspera > 0) { tempoEspera -= delta; return; }
@@ -209,43 +212,23 @@ public class TelaEscape implements Screen {
             return;
         }
 
-        if (!mostraPergunta) {
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) persX -= persVX * delta;
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
-            if (Gdx.input.isKeyPressed(Keys.UP)) persY += persVX * delta;
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) persY -= persVX * delta;
-            persX = Math.max(0, Math.min(persX, w - persSize));
-            persY = Math.max(0, Math.min(persY, h - persSize * 2));
-        }
+        personagem.update(delta);
 
-        batch.begin();
-        for (int i = objetoAtual; i < nomesArquivo.length; i++) {
-            batch.draw(objetos[ordemEmbaralhada[i]], objX[i], objY[i], objSize, objSize);
-        }
-        batch.end();
-
-        shape.setProjectionMatrix(batch.getProjectionMatrix());
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.2f, 0.4f, 0.9f, 1);
-        shape.rect(persX, persY, persSize, persSize * 1.5f);
-        shape.setColor(1f, 0.85f, 0.7f, 1);
-        shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
-        shape.end();
 
         if (!mostraPergunta) {
             if (objetoAtual < nomesArquivo.length) {
-                float distX = Math.abs(persX - objX[objetoAtual]);
-                float distY = Math.abs(persY - objY[objetoAtual]);
+                float distX = Math.abs((personagem.getX() + 40) - objX[objetoAtual]);
+                float distY = Math.abs((personagem.getY() + 40) - objY[objetoAtual]);
                 if (distX < 80 && distY < 80) {
                     shape.setProjectionMatrix(batch.getProjectionMatrix());
                     shape.begin(ShapeRenderer.ShapeType.Filled);
                     shape.setColor(0.18f, 0.75f, 0.75f, 1);
-                    shape.rect(persX - 10, persY + persSize * 2 + 10, 180, 40);
+                    shape.rect(personagem.getX() - 10, personagem.getY() + 90, 180, 40);
                     shape.end();
                     
                     batch.begin();
                     font.setColor(0, 0, 0, 1);
-                    font.draw(batch, "ESPAÇO para investigar", persX - 5, persY + persSize * 2 + 35);
+                    font.draw(batch, "ESPAÇO para investigar", personagem.getX() - 5, personagem.getY() + 115);
                     batch.end();
 
                     if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {

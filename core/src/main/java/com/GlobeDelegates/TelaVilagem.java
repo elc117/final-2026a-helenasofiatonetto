@@ -112,6 +112,8 @@ public class TelaVilagem implements Screen {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+        personagem.update(delta);
+
         batch.begin();
         ImagemUtil.desenharFundo(batch, fundo, w, h);
         personagem.draw(batch);
@@ -122,11 +124,16 @@ public class TelaVilagem implements Screen {
             return;
         }
 
-        personagem.update(delta);
-
         
         // Entradas — só destaque visual quando perto
         for (int i = 0; i < 3; i++) {
+
+            /*andar horizontal e vertical
+            float dx = personagem.getX() - entradaX[i];
+            float dy = personagem.getY() - entradaY[i];
+
+            float dist = (float)Math.sqrt(dx * dx + dy * dy);
+            */
             float dist = Math.abs(personagem.getX() - entradaX[i]);
             if (dist < 80) {
                 shape.begin(ShapeRenderer.ShapeType.Line);
