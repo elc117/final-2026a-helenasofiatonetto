@@ -20,9 +20,7 @@ public class TelaMundo implements Screen {
     private Texture icone;
     private Texture casinha;
 
-    private float persX, persY;
-    private float persSize = 40;
-    private float persVX = 200;
+    private PersonagemAnimado personagem;
 
     private float casinhaX, casinhaY;
     private float casinhaSize = 100;
@@ -88,8 +86,8 @@ public class TelaMundo implements Screen {
                 break;
         }
 
-        persX = 50;
-        persY = h * 0.4f;
+        personagem = new PersonagemAnimado(50, h * 0.4f);
+
     }
 
     @Override
@@ -100,34 +98,34 @@ public class TelaMundo implements Screen {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
 
+       personagem.update(delta);
+
         batch.begin();
+
         ImagemUtil.desenharFundo(batch, fundo, w, h);
-        batch.draw(casinha, casinhaX, casinhaY, casinhaSize, casinhaSize);
+
+        batch.draw(
+            casinha,
+            casinhaX,
+            casinhaY,
+            casinhaSize,
+            casinhaSize
+        );
+
+        personagem.draw(batch);
+
         batch.end();
 
-        if (Gdx.input.isKeyPressed(Keys.LEFT))  persX -= persVX * delta;
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
-        if (Gdx.input.isKeyPressed(Keys.UP))    persY += persVX * delta;
-        if (Gdx.input.isKeyPressed(Keys.DOWN))  persY -= persVX * delta;
-        persX = Math.max(0, Math.min(persX, w - persSize));
-        persY = Math.max(0, Math.min(persY, h - persSize * 2));
 
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.2f, 0.4f, 0.9f, 1);
-        shape.rect(persX, persY, persSize, persSize * 1.5f);
-        shape.setColor(1f, 0.85f, 0.7f, 1);
-        shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
-        shape.end();
-
-        float dist = (float) Math.sqrt(Math.pow(persX - casinhaX, 2) + Math.pow(persY - casinhaY, 2));
+        float dist = (float) Math.sqrt(Math.pow(personagem.getX() - casinhaX, 2) + Math.pow(personagem.getY() - casinhaY, 2));
         if (dist < 100) {
             shape.begin(ShapeRenderer.ShapeType.Filled);
             shape.setColor(0.18f, 0.75f, 0.75f, 1);
-            shape.rect(persX - 10, persY + persSize * 2 + 10, 180, 40);
+            shape.rect(personagem.getX() - 10, personagem.getY() + 90, 180, 40);
             shape.end();
             batch.begin();
             font.setColor(0, 0, 0, 1);
-            font.draw(batch, "ESPACO: entrar", persX, persY + persSize * 2 + 38);
+            font.draw(batch, "ESPACO: entrar", personagem.getX(), personagem.getY() + 118);
             batch.end();
 
             if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {

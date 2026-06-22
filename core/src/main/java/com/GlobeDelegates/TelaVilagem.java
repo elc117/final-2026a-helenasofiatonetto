@@ -18,9 +18,7 @@ public class TelaVilagem implements Screen {
     private BitmapFont font;
     private Texture fundo;
 
-    private float persX, persY;
-    private float persSize = 40;
-    private float persVX = 250;
+    private PersonagemAnimado personagem;
 
     private float[] entradaX;
     private float[] entradaY;
@@ -47,8 +45,8 @@ public class TelaVilagem implements Screen {
         configurarEntradas(jogador.getPais(), w, h);
         desbloqueado = new boolean[]{true, escapeCompleto, escapeCompleto && delegacaoCompleta};
         faseConcluida = new boolean[]{escapeCompleto, delegacaoCompleta, false};
-        persX = 50;
-        persY = h * 0.3f;
+        
+        personagem = new PersonagemAnimado(50, h * 0.3f);
     }
 
     private void configurarEntradas(String pais, float w, float h) {
@@ -116,6 +114,7 @@ public class TelaVilagem implements Screen {
 
         batch.begin();
         ImagemUtil.desenharFundo(batch, fundo, w, h);
+        personagem.draw(batch);
         batch.end();
 
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) {
@@ -123,21 +122,12 @@ public class TelaVilagem implements Screen {
             return;
         }
 
-        if (Gdx.input.isKeyPressed(Keys.LEFT))  persX -= persVX * delta;
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) persX += persVX * delta;
-        persX = Math.max(0, Math.min(persX, w - persSize));
+        personagem.update(delta);
 
-        // Personagem
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        shape.setColor(0.2f, 0.4f, 0.9f, 1);
-        shape.rect(persX, persY, persSize, persSize * 1.5f);
-        shape.setColor(1f, 0.85f, 0.7f, 1);
-        shape.circle(persX + persSize/2, persY + persSize * 1.7f, persSize/2);
-        shape.end();
-
+        
         // Entradas — só destaque visual quando perto
         for (int i = 0; i < 3; i++) {
-            float dist = Math.abs(persX - entradaX[i]);
+            float dist = Math.abs(personagem.getX() - entradaX[i]);
             if (dist < 80) {
                 shape.begin(ShapeRenderer.ShapeType.Line);
                 if (!desbloqueado[i]) {
