@@ -1,14 +1,15 @@
 package com.GlobeDelegates;
 
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import java.util.ArrayList;
 
 public class BonusBrasil implements BonusAtividade {
 
@@ -191,7 +192,7 @@ public class BonusBrasil implements BonusAtividade {
         font.draw(batch, "Toque para tentar novamente", w/2 - 230, h/2 - 20);
         batch.end();
         if (Gdx.input.justTouched()) {
-            jogo.setScreen(new TelaBonusBrasil(jogo, jogador));
+            jogo.setScreen(new TelaBonus(jogo, jogador));
         }
     }
 

@@ -219,7 +219,7 @@ public class BonusBussolaGrecia implements BonusAtividade {
         font.draw(batch, "Toque para tentar novamente", w/2 - 230, h/2 - 20);
         batch.end();
         if (Gdx.input.justTouched()) {
-            jogo.setScreen(new TelaBussolaGrecia(jogo, jogador));
+            jogo.setScreen(new TelaBonusBussola(jogo, jogador, "Grecia"));
         }
     }
 
