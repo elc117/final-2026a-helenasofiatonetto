@@ -180,7 +180,8 @@ Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)
 Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
-[Solo gameplay](gameplay/solo.mp4)
+Solo:
+<img src="gameplay/solo.mp4"> 
 
 Multiplayer:
 <img src="gameplay/multiplayer.gif">
