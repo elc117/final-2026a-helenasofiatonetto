@@ -42,9 +42,11 @@ public class TelaInstrucoesMulti implements Screen {
 
         font.draw(batch, "INSTRUÇÕES MULTIPLAYER", w/2 - 180, h - 100);
 
-        font.draw(batch, "1. Leia a pergnta e selecione a opcao correta.", 100, h - 200);
-        font.draw(batch, "2. Se errar: -1 e adversário pode tentar acertar pergunta", 100, h - 260);
-        font.draw(batch, "3. Acertou resposta: +1 ponto, quem chega a 0 vidas perde", 100, h - 320);
+        font.draw(batch, "Coloque em prática seu conhecimento sobre Paradigmas de Programação!", 100, h - 200);
+        font.draw(batch, "1. Analise a pergunta e selecione a opção que você achar correta", 100, h - 260);
+        font.draw(batch, "2. Se errar: -1 vida e adversário pode tentar acertar a pergunta", 100, h - 320);
+        font.draw(batch, "3. Se acertar: +1 ponto e passa para a próxima pergunta", 100, h - 380);
+        font.draw(batch, "4. Partida encerra quando a vida do adversário zerar", 100, h - 440);
 
         batch.end();
 

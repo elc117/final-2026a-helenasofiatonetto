@@ -42,9 +42,11 @@ public class TelaInstrucoesSolo implements Screen {
 
         font.draw(batch, "INSTRUÇÕES SOLO", w/2 - 180, h - 100);
 
-        font.draw(batch, "1. Escolha seu país.", 100, h - 200);
-        font.draw(batch, "2. Responda perguntas.", 100, h - 260);
-        font.draw(batch, "3. Conquiste territórios.", 100, h - 320);
+        font.draw(batch, "Se aventure em alguns dos lugares que participam da delegação da ONU!", 100, h - 200);
+        font.draw(batch, "1. Escolha um dos ícones para visitar uma Delegação", 100, h - 260);
+        font.draw(batch, "2. ScapeRoom:Colete os objetos e digite a senha para avançar de fase", 100, h - 320);
+        font.draw(batch, "3. Quizz: acerte pelo menos 3 perguntas sobre o país", 100, h - 380);
+        font.draw(batch, "4. Bônus: uma fase diferente em cada Delegação! Complete-a e concluirá a Delegação", 100, h - 440);
 
         batch.end();
 
