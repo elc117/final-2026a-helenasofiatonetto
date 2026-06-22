@@ -117,40 +117,35 @@ BUGS GERAIS
 - ✅ mesmo errando todas as respostas, a delegação é concluida.
 
 PAÍSES
-* ✅ Egito: ok, tem bastante objetos a coletar
+- ✅ Egito: ok, tem bastante objetos a coletar
 * Japao: haiku do rio que corre, não some o 'que' da lista. não é problema pq se clicar nele ele some junto com o outro 'que'
-* Austria: ok
 - ✅ Groelandia: trocar 'todos os anteriores' por 'todas opcoes' no meio de locomoção dos inuits.
-* Canada: ok
 
 SUGESTOES DE MUDANÇAS GERAIS
-* trocar setas por wasd, clicar para coletar por space;
-* se possivel, trocar clicar na opção por percorrer as opções e enter para escolher;
-* ter a opção de voltar no esc(mas jogador terá de recomeçar)
-* esc para desistir/voltar ao menu inicial
-* colocar um minimo de acertos nos quizzes
+* não foi implementado trocar setas por awsd pois ficou bom com as setas
+- ✅ space para coletar;
+- ✅ percorrer as opções com as setas e enter para escolher;
+- ✅ ter a opção de voltar no esc(mas jogador terá de recomeçar)
+- ✅ botão para voltar ao menu de escolha
+- ✅ minimo de acertos nos quizzes
 
 No multiplayer:
 - ✅ Trocar numero 1,2,3,4 das opções por A,B,C,D
 - ✅ Removido a descrição do multiplayer "2 jogadores 1 teclado" no menu inicial
-* fazer uma tela de explicação do jogo:<br>
-"digitou opção certa, ganha 1 pt"<br>
-"digitou oção errada, -1 vida"<br>
-"se um errar, o outro pode escolher uma opção"<br>
-"ganha quando adversário perder as 3 vidas"<br>
-
+- ✅ fazer uma tela de explicação do jogo solo e multiplayer
+  
 Nos países:
 - ✅ Canada: no bonus, colocar os obstaculos vindo da vertical e o bonequinho ser um barril
-* Egito: colocar simbolos no lugar das letras, aumentar velocidade
+- ✅ Egito: colocar simbolos no lugar das letras, aumentar velocidade
 
 REFINAMENTO:
 - ✅ Alterado arquivos: aplicação de polimorfismo e herança para redução da quantidade de arquivos
 - ✅ largura das imagens
-* placeholders
-* telas dos quizzes
-* imagens de fundo
-* jogador
-* localização dos objetos/entradas
+- ✅ placeholders
+- ✅ telas dos quizzes
+- ✅ imagens de fundo
+- ✅ jogador
+- ✅ localização dos objetos/entradas
 
 ## Diagrama de classes:
 Diagrama final de classes do jogo: <br><img width="1839" height="1591" alt="classes final" src="https://github.com/user-attachments/assets/fcc5d96a-fab4-4b9e-9283-02c21adfb64d" />
@@ -170,6 +165,11 @@ Para rodar o código: ./gradlew lwjgl3:run (usamos a versão Java 21)
 Para o build web: ./gradlew html:dist
 
 ## Resultado final: demonstrar execução em GIF animado ou vídeo curto
+Solo:
+<img src="gameplay/solo.gif">
+
+Multiplayer:
+<img src="gameplay/multiplayer.gif">
 
 ## Referências e créditos (incluindo alguns prompts, quando aplicável)
 Todas as perguntas da parte de delegação foram retiradas de sites de quizzes como BuzzFeed e Quizur.
@@ -205,14 +205,14 @@ Prompt para resolver problema de muitos arquivos Bonus:
 - ✅ Implementar a lógica de delegações e pontuação
 - ✅/falta Implementar as perguntas de código (Java, Haskell, Prolog)
 - ✖️ Implementar o ranking final
-- [ ] Testar o build web novamente
+- ✅ Testar o build web novamente
 
 ### Semana 5 — Polimento e entrega
 - ✅ Substituir placeholders pelos assets definitivos (com créditos no README)
 - ✅ Refatorar o código conforme necessidade e registrar no README
 - ✅ Revisar organização das classes e boas práticas de OOP
 - ✅ Garantir que ambas têm commits e entendem o projeto como um todo
-- [ ] Finalizar o README com diário de desenvolvimento, créditos e instruções<br>
+- ✅ Finalizar o README com diário de desenvolvimento, créditos e instruções<br>
 
 <b>Esse plano de trabalho foi gerado pelo claude ia na versão Sonnet 4.6 PRO com esforço LOW<b>
 
@@ -225,6 +225,8 @@ Prompt para resolver problema de muitos arquivos Bonus:
 <br>Wiki da LibGDX - https://libgdx.com/wiki/
 <br>Ferramentas para desenvolvimento - https://libgdx.com/dev/tools/
 <br>Itchi.io - https://itch.io/
-<br>[https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos?utm_term=&utm_campaign=&utm_source=google&utm_medium=cpc&campaign_id=23805973578__&utm_id=23805973578__&hsa_acc=7964138385&hsa_cam=&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=google&hsa_ver=3&gad_source=1&gad_campaignid=23815806613&gbraid=0AAAAADpqZICzPPsBWNgiNa6jJxcJGt5Bn&gclid=CjwKCAjwl97RBhBWEiwAa9rbXR8-b8jDVQPVTY9bG9T7NRf6UmlqAxzA59hh_Po_--0c4QXy7aO8cRoCbfMQAvD_BwE](POO)
-<br>https://github.com/AndreaInfUFSM/elc117-2026a 
-<br> https://github.com/BenJeau/JavaFX-SimonSays - jogo do méxico para começar a pensar na lógica
+<br>TexturePacker Atlas - https://libgdx.com/wiki/tools/texture-packer#textureatlas
+<br>Github da Disciplina - https://github.com/AndreaInfUFSM/elc117-2026a 
+<br>jogo do méxico para começar a pensar na lógica - https://github.com/BenJeau/JavaFX-SimonSays
+<br>O que é POO - https://www.alura.com.br/artigos/poo-programacao-orientada-a-objetos?utm_term=&utm_campaign=&utm_source=google&utm_medium=cpc&campaign_id=23805973578__&utm_id=23805973578__&hsa_acc=7964138385&hsa_cam=&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=google&hsa_ver=3&gad_source=1&gad_campaignid=23815806613&gbraid=0AAAAADpqZICzPPsBWNgiNa6jJxcJGt5Bn&gclid=CjwKCAjwl97RBhBWEiwAa9rbXR8-b8jDVQPVTY9bG9T7NRf6UmlqAxzA59hh_Po_--0c4QXy7aO8cRoCbfMQAvD_BwE
+
