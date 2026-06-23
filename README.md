@@ -68,6 +68,7 @@ Para ficar mais fácil, organizamos os assets com uma pasta para cada país. Con
 
 ### Possíveis melhorias
 Bom, pensando durante nosso julgamento final sobre o trabalho, acreditamos que poderíamos ter animado o nosso personagem no "país" Bússola, nas tela de vilagem, ter feito mais países, ter melhorado mais ainda as imagens, ter colocado sons especiais para cada ação. Querímos também deixar as entradas para as telas (escape, bonus e delegação) mais centralizadas em cada imagem e deixar as perguntas centralizadas no pergamimho, mas não conseguimos. Fazer algum tipo de tela onde o personagem falasse com o jogador para explicar o que isso significaria na simualação da ONU. Jogador escolher país para representar no multiplayer. Fazer parte de debate de delegações que não tínhamos pensaod, mas que seria legal. Na parte da Bússola melhorar a jogabilidade e os ícones. 
+*Não sei o que aconteceu, mas o Brasil não está entrando e o backspace não está funcionando na senha do escape* Precisei colocar isso depois que apresentamos, pois meus colegas foram jogar e não deu certo 
 
 ### Conceitos de POO utilizados 
 * Herança - a classe SimulacaoJogo extende a Jogo, nessa parte trabalhamos o conceito de herança, Jogo define o básico e SimulacaoJogo implementa o nosso jogo, Jogo tem a fase e a SimulacaoJogo herda isso e adiciona seus prórpios atributos (emAndamento), as telas implemnetam o Screen do libGDX e todas as telas de Bonus de cada país implementam o BonusAtividade
